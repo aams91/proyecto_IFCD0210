@@ -30,23 +30,20 @@ function pagCerrarModal(id) {
     document.getElementById("pagDivModal_" + id).style.display = "none";
 }
 
+function pintarEtiqueta() {
+    loDelInput = document.getElementById("inputEtiqueta").value;
+    document.getElementById("etiquetasElegidas").innerHTML += "<span  class='cadaEtiquetaInput'>" + loDelInput + "<span>";
+    document.getElementById("inputEtiqueta").value = "";
+}
+
+
+
+
 /* window.onlick = function (event) {
     if (event.target == document.getElementById("pagDivModal")) {
         document.getElementById("pagDivModal").style.display = "none";
     }
 } */
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

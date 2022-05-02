@@ -36,3 +36,11 @@
     cursor: pointer;
     color: black;
 }
+
+.cadaEtiquetaInput {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 2px;
+    margin-right: 2px;
+}
+

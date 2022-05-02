@@ -40,22 +40,25 @@ include("funciones.php");
     $etiquetasSeparadas = explode("/ ", $JsonEtiquetas);
     
 
-    foreach ($etiquetasSeparadas as $etiqueta) {
+    /* foreach ($etiquetasSeparadas as $etiqueta) {
+        // Ver si etiqueta ya existe
+        $accesoEtiquetaExiste = new ConectarDB;
+        $consultaEtiquetaExiste = "SELECT COUNT(*) as numRepeticion FROM etiquetas WHERE etiquetas.nombre = '$etiqueta';";
+        $resultadoEtiquetaExiste = $accesoEtiquetaExiste->consultar($consultaEtiquetaExiste)->fetch_all(MYSQLI_ASSOC);
+        
+
 
         $conexion3 = new ConectarDB;
-        $consulta3 = "INSERT INTO etiquetas (id_etiqueta, nombre) VALUES
-        (NULL, '$etiqueta');";
+        $consulta3 = "INSERT INTO etiquetas (id_etiqueta, nombre) VALUES (NULL, '$etiqueta');";
         $resultado3 = $conexion3->consultar($consulta3);
         $conexion3->cerrar();
     
     
         $conexion4 = new ConectarDB;
-        $consulta4 = "INSERT INTO etiq_entradas (id_etiq_entrada, id_entrada,
-        id_etiqueta) VALUES (NULL, (SELECT MAX(id_entrada) FROM entradas),
-        (SELECT MAX(id_etiqueta) FROM etiquetas));";
+        $consulta4 = "INSERT INTO etiq_entradas (id_etiq_entrada, id_entrada, id_etiqueta) VALUES (NULL, (SELECT MAX(id_entrada) FROM entradas), (SELECT MAX(id_etiqueta) FROM etiquetas));";
         $resultado4 = $conexion4->consultar($consulta4);
         $conexion4->cerrar();
-    } 
+    }  */
     header("Location: pagina.php");
     
 
