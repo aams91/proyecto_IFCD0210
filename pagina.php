@@ -59,35 +59,30 @@ chequearSesion();
             <br>
             <div name="etiquetasElegidas" id="etiquetasElegidas">Etiquetas </div>
             <br>
+            <?php
+                $accesoEtiquetas = new ConectarDB;
+                $consultaAccesoEtiquetas = "SELECT DISTINCT etiquetas.nombre, etiquetas.id_etiqueta FROM etiquetas INNER JOIN etiq_entradas ON etiquetas.id_etiqueta = etiq_entradas.id_etiqueta INNER JOIN entradas ON etiq_entradas.id_entrada = entradas.id_entrada INNER JOIN usuarios ON entradas.id_usuario = (SELECT id_usuario FROM usuarios WHERE usuario = '$usuario')";
+                $resultadoEtiquetas = $accesoEtiquetas->consultar($consultaAccesoEtiquetas)->fetch_all(MYSQLI_ASSOC);
+            ?>
+            <select id="todasEtiquetas">
+                Etiquetas :
+                <?php 
+                    foreach ($resultadoEtiquetas as $etiqueta) {   
+                    ?>
+                        <option value="<?php echo $etiqueta["id_etiqueta"];?>"><?php echo $etiqueta["nombre"];?></option>
+                    <?php
+                        }
+                }
+                ?>
+            </select>
+            <br>
             <input type="text" name="inputEtiqueta" id="inputEtiqueta" placeholder="etiqueta">
             <span id="pintarEtiqueta" onclick="pintarEtiqueta()">Agregar etiqueta</span>
             <br>
             <input type="submit" value="Insertar" id="btnInsertar">
         </form>
 
-        <?php
-            $accesoEtiquetas = new ConectarDB;
-            $consultaAccesoEtiquetas = "SELECT DISTINCT etiquetas.nombre, etiquetas.id_etiqueta FROM etiquetas INNER JOIN etiq_entradas ON etiquetas.id_etiqueta = etiq_entradas.id_etiqueta INNER JOIN entradas ON etiq_entradas.id_entrada = entradas.id_entrada INNER JOIN usuarios ON entradas.id_usuario = (SELECT id_usuario FROM usuarios WHERE usuario = '$usuario')";
-            $resultadoEtiquetas = $accesoEtiquetas->consultar($consultaAccesoEtiquetas)->fetch_all(MYSQLI_ASSOC);
-        ?>
-        <div id="todasEtiquetas">
-            Etiquetas :
-            <?php 
-                foreach ($resultadoEntradas as $entrada) {
-                    $textoEntrada = $entrada["texto"];
-                    $consultaIdEtiquetas = "SELECT DISTINCT etiquetas.nombre, etiquetas.id_etiqueta FROM etiquetas INNER JOIN etiq_entradas ON etiquetas.id_etiqueta = etiq_entradas.id_etiqueta INNER JOIN entradas ON etiq_entradas.id_entrada = entradas.id_entrada INNER JOIN usuarios ON entradas.id_usuario = (SELECT id_usuario FROM usuarios WHERE usuario = '$usuario') AND entradas.texto = '$textoEntrada';";
-                    $resultadoIdEtiquetas = $accesoEtiquetas->consultar($consultaIdEtiquetas)->fetch_all(MYSQLI_ASSOC);
-                    foreach ($resultadoIdEtiquetas as $cadaResultado){
-                ?>
-                    <div class='cadaEtiqueta' data-id-etiqueta="<?php echo $cadaResultado["id_etiqueta"]; ?>">
-                        <?php echo $cadaResultado["nombre"];?>
-                    </div>
-                <?php
-                    }
-            }
-    }
-            ?>
-        </div>
+        
         <?php
         $accesoEtiquetas->cerrar();
 

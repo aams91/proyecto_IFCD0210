@@ -31,9 +31,32 @@ function pagCerrarModal(id) {
 }
 
 function pintarEtiqueta() {
-    loDelInput = document.getElementById("inputEtiqueta").value;
-    document.getElementById("etiquetasElegidas").innerHTML += "<span  class='cadaEtiquetaInput'>" + loDelInput + "<span>";
+    var loDelInput = document.getElementById("inputEtiqueta").value;
+    document.getElementById("etiquetasElegidas").innerHTML += "<span class='cadaEtiquetaInput'>" + loDelInput + "</span>";
+    var etqs = document.getElementById("etiquetasElegidas").innerHTML.split('<span class="cadaEtiquetaInput">');
+    var etq = "";
+    for (i=1; i<etqs.length; i++) {
+        etq += etqs[i];
+        var etqSplit = etq.split("</span>");
+        var etqCasiListo = etqSplit.join(","); 
+
+        var ajaxURL = "comprobarEtiquetas.php";
+        var solicitudAjax = new XMLHttpRequest();
+        solicitudAjax.onreadystatechange = function() {
+            if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
+                    respuesta = solicitudAjax.responseText;
+                    document.getElementById("todasEntradas").innerHTML = respuesta; 
+                   
+            }
+            solicitudAjax.open("GET", ajaxURL + "?etiquetas=" + etqCasiListo);
+        
+            solicitudAjax.send(); 
+        }        
+
+
+    }
     document.getElementById("inputEtiqueta").value = "";
+
 }
 
 
