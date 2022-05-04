@@ -44,3 +44,7 @@
     margin-right: 2px;
 }
 
+.cadaEtiquetaInput:hover {
+    cursor: pointer;
+}
+

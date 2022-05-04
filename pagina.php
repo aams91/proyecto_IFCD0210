@@ -53,33 +53,35 @@ chequearSesion();
             
         </div>
 
-        <form action="insertarEntradas.php" method="post"> 
+        <form action="entradasYEtiquetas.php" method="post"> 
             <textarea name="adicion" id="adicion"  cols="30" rows="5" placeholder="Escribe aquí" maxlength="995" oninput="pagContarCar()"></textarea>
             <div id="pagContadorCar">0/995</div> 
             <br>
-            <div name="etiquetasElegidas" id="etiquetasElegidas">Etiquetas </div>
+            <!-- <div name="etiquetasElegidas" id="etiquetasElegidas">Etiquetas </div> -->
             <br>
             <?php
                 $accesoEtiquetas = new ConectarDB;
                 $consultaAccesoEtiquetas = "SELECT DISTINCT etiquetas.nombre, etiquetas.id_etiqueta FROM etiquetas INNER JOIN etiq_entradas ON etiquetas.id_etiqueta = etiq_entradas.id_etiqueta INNER JOIN entradas ON etiq_entradas.id_entrada = entradas.id_entrada INNER JOIN usuarios ON entradas.id_usuario = (SELECT id_usuario FROM usuarios WHERE usuario = '$usuario')";
                 $resultadoEtiquetas = $accesoEtiquetas->consultar($consultaAccesoEtiquetas)->fetch_all(MYSQLI_ASSOC);
             ?>
-            <select id="todasEtiquetas">
-                Etiquetas :
+            <div id="todasEtiquetas">
                 <?php 
                     foreach ($resultadoEtiquetas as $etiqueta) {   
                     ?>
-                        <option value="<?php echo $etiqueta["id_etiqueta"];?>"><?php echo $etiqueta["nombre"];?></option>
+                        <span class="cadaEtiquetaInput" onclick="cambiarFondo(<?php echo $etiqueta['id_etiqueta'];?>)" id="cadaEtiqueta_<?php echo $etiqueta['id_etiqueta'];?>" data-id-etiqueta="<?php echo $etiqueta['id_etiqueta'];?>">
+                            <?php echo $etiqueta["nombre"];?>
+                    </span>
                     <?php
-                        }
+                    }
                 }
                 ?>
-            </select>
+            </div>
             <br>
-            <input type="text" name="inputEtiqueta" id="inputEtiqueta" placeholder="etiqueta">
-            <span id="pintarEtiqueta" onclick="pintarEtiqueta()">Agregar etiqueta</span>
+            <label for="inputEtiquetas">Etiquetas</label>
+            <input type="text" name="inputEtiqueta" id="inputEtiqueta" placeholder="etiqueta" >
+<!--             <span id="pintarEtiqueta" onclick="pintarEtiqueta()">Nueva etiqueta</span> -->
             <br>
-            <input type="submit" value="Insertar" id="btnInsertar">
+            <input type="submit" value="Insertar" id="btnInsertar" onclick="manejarEtiquetas()">
         </form>
 
         

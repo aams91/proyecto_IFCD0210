@@ -30,8 +30,14 @@ function pagCerrarModal(id) {
     document.getElementById("pagDivModal_" + id).style.display = "none";
 }
 
+var arrayInput = new Array ();
 function pintarEtiqueta() {
     var loDelInput = document.getElementById("inputEtiqueta").value;
+    document.getElementById("etiquetasElegidas").innerHTML += "<span class='cadaEtiquetaInput'>" + loDelInput + "</span>";
+    arrayInput.push(loDelInput);
+    console.log(arrayInput);
+
+    /* 
     document.getElementById("etiquetasElegidas").innerHTML += "<span class='cadaEtiquetaInput'>" + loDelInput + "</span>";
     var etqs = document.getElementById("etiquetasElegidas").innerHTML.split('<span class="cadaEtiquetaInput">');
     var etq = "";
@@ -39,8 +45,18 @@ function pintarEtiqueta() {
         etq += etqs[i];
         var etqSplit = etq.split("</span>");
         var etqCasiListo = etqSplit.join(","); 
+        var JsonEtiquetas = JSON.stringify(etqCasiListo);
+    } */
+    document.getElementById("inputEtiqueta").value = "";
+}
+function cambiarFondo(id) {
 
-        var ajaxURL = "comprobarEtiquetas.php";
+    document.getElementById("cadaEtiqueta_" + id).style.color = "red";
+}
+
+
+function manejarEtiquetas() {
+    var ajaxURL = "entradasYEtiquetas.php";
         var solicitudAjax = new XMLHttpRequest();
         solicitudAjax.onreadystatechange = function() {
             if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
@@ -48,18 +64,12 @@ function pintarEtiqueta() {
                     document.getElementById("todasEntradas").innerHTML = respuesta; 
                    
             }
-            solicitudAjax.open("GET", ajaxURL + "?etiquetas=" + etqCasiListo);
+            solicitudAjax.open("POST", ajaxURL);
+
         
-            solicitudAjax.send(); 
+            solicitudAjax.send('arrayInput=' + JSON.stringify(arrayInput));
         }        
-
-
-    }
-    document.getElementById("inputEtiqueta").value = "";
-
 }
-
-
 
 
 /* window.onlick = function (event) {
