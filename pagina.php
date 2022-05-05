@@ -57,7 +57,7 @@ chequearSesion();
             <textarea name="adicion" id="adicion"  cols="30" rows="5" placeholder="Escribe aquí" maxlength="995" oninput="pagContarCar()"></textarea>
             <div id="pagContadorCar">0/995</div> 
             <br>
-            <!-- <div name="etiquetasElegidas" id="etiquetasElegidas">Etiquetas </div> -->
+            <div name="etiquetasElegidas" id="etiquetasElegidas">Etiquetas </div>
             <br>
             <?php
                 $accesoEtiquetas = new ConectarDB;
@@ -68,9 +68,9 @@ chequearSesion();
                 <?php 
                     foreach ($resultadoEtiquetas as $etiqueta) {   
                     ?>
-                        <span class="cadaEtiquetaInput" onclick="cambiarFondo(<?php echo $etiqueta['id_etiqueta'];?>)" id="cadaEtiqueta_<?php echo $etiqueta['id_etiqueta'];?>" data-id-etiqueta="<?php echo $etiqueta['id_etiqueta'];?>">
+                        <span class="cadaEtiquetaInput" onclick="pintarEtiqueta('<?php echo $etiqueta['nombre'];?>')" id="cadaEtiqueta_<?php echo $etiqueta['id_etiqueta'];?>" data-id-etiqueta="<?php echo $etiqueta['id_etiqueta'];?>">
                             <?php echo $etiqueta["nombre"];?>
-                    </span>
+                        </span>
                     <?php
                     }
                 }
@@ -79,12 +79,15 @@ chequearSesion();
             <br>
             <label for="inputEtiquetas">Etiquetas</label>
             <input type="text" name="inputEtiqueta" id="inputEtiqueta" placeholder="etiqueta" >
-<!--             <span id="pintarEtiqueta" onclick="pintarEtiqueta()">Nueva etiqueta</span> -->
+            <!-- <span id="pintarEtiqueta" onclick="pintarEtiqueta()">
+                Nueva etiqueta
+            </span> -->
             <br>
             <input type="submit" value="Insertar" id="btnInsertar" onclick="manejarEtiquetas()">
         </form>
 
         
+
         <?php
         $accesoEtiquetas->cerrar();
 

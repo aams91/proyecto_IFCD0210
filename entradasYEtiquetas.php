@@ -5,10 +5,13 @@ include("funciones.php");
 
     $usuario = $_SESSION["usuario"];
     $texto = $_POST["adicion"];
-    $JsonEtiquetas = $_POST["arrayInput"]; //esto es un string
+    $etiqInput = $_POST["inputEtiqueta"]; //esto es un string
+    echo "La variable post:";
     var_dump($_POST);
-/*     print_r($JsonEtiquetas);
-    var_dump($texto); */
+    $todasEtiquetasInput = trim($etiqInput);
+    echo "<br><br><br>Las etiquetas sin espacios:";
+    var_dump($todasEtiquetasInput);
+
 
     // Sacar id_usuario
     $accesoAveriguarID = new ConectarDB;
@@ -38,60 +41,51 @@ include("funciones.php");
     $accesoInsertar->cerrar();
 
     // Insertar etiquetas
-    $etiquetasSeparadas = explode(",", $JsonEtiquetas, -1);
-    /* var_dump($etiquetasSeparadas); */
+    $arrayEtiqInput = explode(", ", $todasEtiquetasInput);
+    echo "<br><br><br>Las etiquetas en array: <pre>";
+    var_dump($arrayEtiqInput);
+    echo "</pre>";
+
+    $etiqApelotonadas = "";
+    $accesoVerEtiquetas = new ConectarDB;
+    $consultaVerEtiquetas = "SELECT * FROM etiquetas;";
+    $resultadoVerEtiquetas = $accesoVerEtiquetas->consultar($consultaVerEtiquetas)->fetch_all(MYSQLI_ASSOC);
+    foreach ($resultadoVerEtiquetas as $cadaResultado) {
+        $etiqApelotonadas = $etiqApelotonadas . "," . $cadaResultado["nombre"] ; 
+    }
     
-    foreach ($etiquetasSeparadas as $etiqueta) {
-        $accesoComprobacion = new ConectarDB;
-        $consultaComprobacion = "SELECT COUNT(*) as repetida FROM etiquetas, usuarios WHERE etiquetas.nombre = '$etiqueta' AND usuarios.usuario = '$usuario';";
-        $resultadoComprobacion = $accesoComprobacion->consultar($consultaComprobacion)->fetch_all(MYSQLI_ASSOC);
-        var_dump($resultadoComprobacion);
-        echo "<br><br><br>";
-        if ($resultadoComprobacion[0]["repetida"] == 1) {
-            $accesoSacarId = new ConectarDB;
-            $consultaSacarId = "SELECT id_etiqueta FROM etiquetas WHERE nombre = '$etiqueta';";
-            $resultadoSacarId = $accesoSacarId->consultar($consultaSacarId)->fetch_all(MYSQLI_ASSOC);
-            foreach ($resultadoSacarId as $idEtiqueta) {
-                // ACÁ TENGO EL ID DE LA ETIQUETA, QUE LO VOY A USAR PARA INSERTARLO DIRECTAMENTE EN ETIQ_ENTRADAS EMPAREJÁNDOLO CON EL ID DE LA ÚLTIMA ENTRADA
-                $idEtiqueta = $idEtiqueta["id_etiqueta"];
-                $consultaInsertarEtiqRepe = "INSERT INTO etiq_entradas (id_etiqueta, id_entrada) VALUES ('$idEtiqueta', (SELECT MAX(id_entrada) FROM entradas));";
-                $resultadoInsertarEtiqRepe = $accesoSacarId->consultar($consultaInsertarEtiqRepe);                
-            }
-            echo "<pre>";
-            var_dump($resultadoSacarId);
-            echo "</pre>Hasta aquí<br>";
-        } else {
-            $accesoInsertarNuevaEtiq = new ConectarDB;
-            $consultaInsertarNuevaEtiq = "INSERT INTO etiquetas (nombre) VALUES ('$etiqueta');";
-            $resultadoInsertarNuevaEtiq = $accesoInsertarNuevaEtiq->consultar($consultaInsertarNuevaEtiq);
-            $consultaInsertarEnTablaUnion = "INSERT INTO etiq_entradas (id_etiqueta, id_entrada) VALUES ((SELECT MAX(id_etiqueta) FROM etiquetas), (SELECT MAX(id_entrada) FROM entradas));";
-            $resultadoInsertarEnTablaUnion = $accesoInsertarNuevaEtiq->consultar($consultaInsertarEnTablaUnion);
-        }
-        $accesoSacarId->cerrar();
-        $accesoComprobacion->cerrar();
-        $accesoInsertarNuevaEtiq->cerrar();
+    $arrayEtiqBD = explode(",", $etiqApelotonadas); 
+    echo "<br><br><br>ñññe<pre>";
+    var_dump($arrayEtiqBD);
+    echo "</pre>";
+    $accesoVerEtiquetas->cerrar();
+
+    $lasEtiqQueNoEstan = array_diff($arrayEtiqInput, $arrayEtiqBD);
+    echo "<br><br><br>Diferencias:<pre>";
+    var_dump($lasEtiqQueNoEstan);
+
+
+    $lasEtiqQueSiEstan = array_diff($arrayEtiqInput, $lasEtiqQueNoEstan);
+    echo "<br><br><br>Diferencias:<pre>";
+    var_dump($lasEtiqQueSiEstan);
+
+    $accesoInsertarEtiquetas = new ConectarDB;
+    foreach ($lasEtiqQueNoEstan as $cadaEtiqueta) {
+        $consultaInsertarEtiquetas = "INSERT INTO etiquetas (id_etiqueta, nombre) VALUES (NULL, '$cadaEtiqueta');";
+        $resultadoInsertarEtiquetas = $accesoInsertarEtiquetas->consultar($consultaInsertarEtiquetas);
+        $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_etiqueta, id_entrada) VALUES ((SELECT MAX(id_etiqueta) FROM etiquetas), (SELECT MAX(id_entrada) FROM entradas))";
+        $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
     }
 
-    /* foreach ($etiquetasSeparadas as $etiqueta) {
-        // Ver si etiqueta ya existe
-        $accesoEtiquetaExiste = new ConectarDB;
-        $consultaEtiquetaExiste = "SELECT COUNT(*) as numRepeticion FROM etiquetas WHERE etiquetas.nombre = '$etiqueta';";
-        $resultadoEtiquetaExiste = $accesoEtiquetaExiste->consultar($consultaEtiquetaExiste)->fetch_all(MYSQLI_ASSOC);
-        
-
-
-        $conexion3 = new ConectarDB;
-        $consulta3 = "INSERT INTO etiquetas (id_etiqueta, nombre) VALUES (NULL, '$etiqueta');";
-        $resultado3 = $conexion3->consultar($consulta3);
-        $conexion3->cerrar();
-    
-    
-        $conexion4 = new ConectarDB;
-        $consulta4 = "INSERT INTO etiq_entradas (id_etiq_entrada, id_entrada, id_etiqueta) VALUES (NULL, (SELECT MAX(id_entrada) FROM entradas), (SELECT MAX(id_etiqueta) FROM etiquetas));";
-        $resultado4 = $conexion4->consultar($consulta4);
-        $conexion4->cerrar();
-    }  */
-    /* header("Location: pagina.php"); */
+    foreach ($lasEtiqQueSiEstan as $cadaEtiqueta) { 
+        $consultaSacarId = "SELECT id_etiqueta FROM etiquetas WHERE nombre = '$cadaEtiqueta';";
+        $resultadoSacarId = $accesoInsertarEtiquetas->consultar($consultaSacarId)->fetch_all(MYSQLI_ASSOC);
+        $idEtiqueta = $resultadoSacarId[0]["id_etiqueta"];
+        $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_entrada, id_etiqueta) VALUES ((SELECT MAX(id_entrada) FROM entradas), '$idEtiqueta');";
+        $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
+    }
+  
+    header("Location: pagina.php");
     
 
 

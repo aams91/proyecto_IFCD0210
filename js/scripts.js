@@ -31,11 +31,12 @@ function pagCerrarModal(id) {
 }
 
 var arrayInput = new Array ();
-function pintarEtiqueta() {
+function cambiarlenombre() {
+    /* CON ESTO VOY AGARRANDO LO QUE MANDO CON "NUEVA ETIQUETA" EN EL INPUT Y LO VOY AGREGANDO A UN ARRAY
     var loDelInput = document.getElementById("inputEtiqueta").value;
     document.getElementById("etiquetasElegidas").innerHTML += "<span class='cadaEtiquetaInput'>" + loDelInput + "</span>";
     arrayInput.push(loDelInput);
-    console.log(arrayInput);
+    console.log(arrayInput); */
 
     /* 
     document.getElementById("etiquetasElegidas").innerHTML += "<span class='cadaEtiquetaInput'>" + loDelInput + "</span>";
@@ -49,11 +50,9 @@ function pintarEtiqueta() {
     } */
     document.getElementById("inputEtiqueta").value = "";
 }
-function cambiarFondo(id) {
 
-    document.getElementById("cadaEtiqueta_" + id).style.color = "red";
-}
 
+// AGARRAR EL ARRAYINPUT Y PASARLO A JSON PARA MANDARLO
 
 function manejarEtiquetas() {
     var ajaxURL = "entradasYEtiquetas.php";
@@ -61,15 +60,27 @@ function manejarEtiquetas() {
         solicitudAjax.onreadystatechange = function() {
             if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
                     respuesta = solicitudAjax.responseText;
-                    document.getElementById("todasEntradas").innerHTML = respuesta; 
                    
             }
-            solicitudAjax.open("POST", ajaxURL);
+            var JSONAMandar = JSON.stringify(arrayInput);
+            solicitudAjax.open("POST", ajaxURL, true);
+        
+            solicitudAjax.send(JSONAMandar);
 
         
-            solicitudAjax.send('arrayInput=' + JSON.stringify(arrayInput));
         }        
 }
+
+
+function pintarEtiqueta(etq) {
+    console.log(etq);
+    document.getElementById("inputEtiqueta").value += etq + ", ";
+    /* document.getElementById("cadaEtiqueta_" + id).style.color = "red"; */
+    // ESTO YA FUNCIONA, AHORA HACER UN IF PARA CAMBIARLE EL COLOR SI SE SELECCIONA Y OTRO IF PARA QUE SE INCLUYA EN EL ARRAY SI ESTÁ SELECCIONADA
+}
+
+
+
 
 
 /* window.onlick = function (event) {
