@@ -8,7 +8,8 @@ include("funciones.php");
     $etiqInput = $_POST["inputEtiqueta"]; //esto es un string
     echo "La variable post:";
     var_dump($_POST);
-    $todasEtiquetasInput = trim($etiqInput);
+    $todasEtiquetasInput1 = trim($etiqInput);
+    $todasEtiquetasInput = rtrim($todasEtiquetasInput1, ",");
     echo "<br><br><br>Las etiquetas sin espacios:";
     var_dump($todasEtiquetasInput);
 
@@ -84,9 +85,8 @@ include("funciones.php");
         $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_entrada, id_etiqueta) VALUES ((SELECT MAX(id_entrada) FROM entradas), '$idEtiqueta');";
         $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
     }
-  
-    header("Location: pagina.php");
-    
+
+header("Location: pagina.php"); 
 
 
 ?>
