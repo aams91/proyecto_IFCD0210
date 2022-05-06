@@ -37,7 +37,7 @@
     color: black;
 }
 
-.cadaEtiquetaInput {
+.cadaEtiquetaInput, .pagContenidoModalEtiqCadaEtiq {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 2px;
@@ -48,3 +48,10 @@
     cursor: pointer;
 }
 
+li.cadaEtiquetaRelacion {
+    list-style: none;
+}
+
+.todasEtiquetasRelacion ul {
+    padding-left: 0;
+}

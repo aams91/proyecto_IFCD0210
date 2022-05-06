@@ -22,12 +22,20 @@ function pagContarCar() {
 
 /* MODAL */
 
-function pagAbrirModal(id) {
-    document.getElementById("pagDivModal_" + id).style.display = "block";
+function pagAbrirModalEnt(id) {
+    document.getElementById("pagDivModalEnt_" + id).style.display = "block";
 }
 
-function pagCerrarModal(id) {
-    document.getElementById("pagDivModal_" + id).style.display = "none";
+function pagCerrarModalEnt(id) {
+    document.getElementById("pagDivModalEnt_" + id).style.display = "none";
+}
+
+function pagAbrirModalEntrada(id) {
+    document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "block";
+}
+
+function pagCerrarModalEntEtiq(id) {
+    document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
 }
 
 var arrayInput = new Array ();
@@ -54,7 +62,7 @@ function cambiarlenombre() {
 
 // AGARRAR EL ARRAYINPUT Y PASARLO A JSON PARA MANDARLO
 
-function manejarEtiquetas() {
+function pagManejarEtiquetas() {
     var ajaxURL = "entradasYEtiquetas.php";
         var solicitudAjax = new XMLHttpRequest();
         solicitudAjax.onreadystatechange = function() {
@@ -72,7 +80,7 @@ function manejarEtiquetas() {
 }
 
 
-function pintarEtiqueta(etq) {
+function pagPintarEtiquetaInput(etq) {
     console.log(etq);
     document.getElementById("inputEtiqueta").value += etq + ", ";
     /* document.getElementById("cadaEtiqueta_" + id).style.color = "red"; */
