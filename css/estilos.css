@@ -55,3 +55,12 @@ li.cadaEtiquetaRelacion {
 .todasEtiquetasRelacion ul {
     padding-left: 0;
 }
+
+.pagContenidoModalCadaEntrada {
+    border: 1px solid #ccc;
+    padding: 2px;
+}
+
+.cadaEtiquetaRelacion:hover {
+    cursor: pointer;
+}

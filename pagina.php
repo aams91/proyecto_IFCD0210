@@ -37,30 +37,30 @@ chequearSesion();
                     <span class="pagSpanModales" id="pagBotonModal" onclick="pagAbrirModalEnt(<?php echo $entrada['id_entrada'];?>)">
                         <mark>Abrir modal</mark>
                     </span>
-                </div> 
+            </div> 
 
-                <!-- MODAL ENTRADAS -->
-                <?php 
-                $accesoCadaEtiqEntrada = new ConectarDB;
-                $consultaCadaEtiqEntrada = "SELECT etiquetas.nombre FROM etiquetas INNER JOIN etiq_entradas ON etiquetas.id_etiqueta = etiq_entradas.id_etiqueta INNER JOIN entradas ON entradas.id_entrada = etiq_entradas.id_entrada WHERE entradas.id_entrada = $entradaIDEntrada";
-                $resultadoCadaEtiqEntrada = $accesoCadaEtiqEntrada->consultar($consultaCadaEtiqEntrada)->fetch_all(MYSQLI_ASSOC);   
-                ?>
-                <div id="pagDivModalEnt_<?php echo $entrada["id_entrada"]?>" class="pagModal">
-                    <div class="pagContenidoModal">
-                        <span class="pagCerrarModal" onclick="pagCerrarModalEnt(<?php echo $entrada['id_entrada'];?>)">X</span>
-                        <p class="pagContenidoModalEntrada"><?php echo $entrada["texto"];?></p>
-                        <p class="pagContenidoModalEtiq">Etiquetas: 
+            <!-- MODAL ENTRADAS -->
+            <?php 
+            $accesoCadaEtiqEntrada = new ConectarDB;
+            $consultaCadaEtiqEntrada = "SELECT etiquetas.nombre FROM etiquetas INNER JOIN etiq_entradas ON etiquetas.id_etiqueta = etiq_entradas.id_etiqueta INNER JOIN entradas ON entradas.id_entrada = etiq_entradas.id_entrada WHERE entradas.id_entrada = $entradaIDEntrada";
+            $resultadoCadaEtiqEntrada = $accesoCadaEtiqEntrada->consultar($consultaCadaEtiqEntrada)->fetch_all(MYSQLI_ASSOC);   
+            ?>
+            <div id="pagDivModalEnt_<?php echo $entrada["id_entrada"]?>" class="pagModal">
+                <div class="pagContenidoModal">
+                    <span class="pagCerrarModal" onclick="pagCerrarModalEnt(<?php echo $entrada['id_entrada'];?>)">X</span>
+                    <p class="pagContenidoModalEntrada"><?php echo $entrada["texto"];?></p>
+                    <p class="pagContenidoModalEtiq">Etiquetas: 
+                        <?php 
+                        foreach ($resultadoCadaEtiqEntrada as $etiqEntrada) {
+                        ?>
+                            <span class="pagContenidoModalEtiqCadaEtiq"><?php echo $etiqEntrada["nombre"];?></span>
                             <?php 
-                            foreach ($resultadoCadaEtiqEntrada as $etiqEntrada) {
-                            ?>
-                                <span class="pagContenidoModalEtiqCadaEtiq"><?php echo $etiqEntrada["nombre"];?></span>
-                            <?php 
-                            }
-                            ?>
-                        </p>
-                    </div>
+                        }
+                        ?>
+                    </p>
                 </div>
-                <!-- FIN MODAL ENTRADAS -->
+            </div>
+            <!-- FIN MODAL ENTRADAS -->
         <?php
         }
                 $accesoCadaEtiqEntrada->cerrar();
@@ -106,53 +106,41 @@ chequearSesion();
                 $consultaAccesoEtiquetasRelacion = "SELECT DISTINCT etiquetas.nombre, etiquetas.id_etiqueta FROM etiquetas INNER JOIN etiq_entradas ON etiquetas.id_etiqueta = etiq_entradas.id_etiqueta INNER JOIN entradas ON etiq_entradas.id_entrada = entradas.id_entrada INNER JOIN usuarios ON entradas.id_usuario = (SELECT id_usuario FROM usuarios WHERE usuario = '$usuario');";
                 $resultadoEtiquetasRelacion = $accesoEtiquetasRelacion->consultar($consultaAccesoEtiquetasRelacion)->fetch_all(MYSQLI_ASSOC);
             ?>
-                <ul>
-                    <?php
-                    foreach ($resultadoEtiquetasRelacion as $etiqueta) {
-/*                         echo "<pre>aquímaricaaquí";
-                        var_dump($etiqueta);
-                        echo "</pre>"; */
+            <ul>
+                <?php
+                foreach ($resultadoEtiquetasRelacion as $etiqueta) {
                     ?>
-                        <li class="cadaEtiquetaRelacion" onclick="pagAbrirModalEntrada(<?php echo $etiqueta['id_etiqueta'];?>)"><?php echo $etiqueta['nombre'];?></li> 
+                    <li class="cadaEtiquetaRelacion" onclick="pagAbrirModalEntrada(<?php echo $etiqueta['id_etiqueta'];?>)"><?php echo $etiqueta['nombre'];?></li> 
                     <?php
-                    }
-                    ?>
-                </ul>
+                }
+                ?>
+            </ul>
             <?php 
                 $accesoEtiquetasRelacion->cerrar();
 
-                /* MODAL ENTRADAS SEGÚN ETIQUETA */
-                foreach ($resultadoEtiquetasRelacion as $etiqueta) {
-                   /*  echo "<pre>coño";
-                    var_dump($resultadoEtiquetasRelacion);
-                    echo "</pre><br><br><br><br><br><br><br>"; */
+            /* MODAL ENTRADAS SEGÚN ETIQUETA */
+            foreach ($resultadoEtiquetasRelacion as $etiqueta) {
                     $etiquetaIDEtiqueta = $etiqueta['id_etiqueta'];
                     $accesoTextoBien = new ConectarDB;
                     $consultaTextoBien = "SELECT DISTINCT texto FROM entradas INNER JOIN etiq_entradas ON etiq_entradas.id_entrada = entradas.id_entrada INNER JOIN usuarios ON usuarios.id_usuario = entradas.id_usuario WHERE usuarios.usuario = '$usuario' AND etiq_entradas.id_etiqueta = '$etiquetaIDEtiqueta';";
                     $resultadoTextoBien = $accesoTextoBien->consultar($consultaTextoBien)->fetch_all(MYSQLI_ASSOC);
                     ?>
-                        <div id="pagDivModalEntSegunEtiq_<?php echo $etiqueta['id_etiqueta'];?>" class="pagModal">
-                    <?php
-                    foreach ($resultadoTextoBien as $textoBien) {
-                        echo "<pre> esto qué es";
-                        var_dump($textoBien['texto']);
-                        echo "</pre>";
-                    ?>
-                            <div class="pagContenidoModal">
-                                <span class="pagCerrarModal" onclick="pagCerrarModalEntEtiq(<?php echo $etiqueta['id_etiqueta'];?>)">X</span>
-                                <p class="pagContenidoModalEntradaEtiq"><?php print_r ($textoBien["texto"]) . "<br>";?></p>
-                            </div>
+                    <div id="pagDivModalEntSegunEtiq_<?php echo $etiqueta['id_etiqueta'];?>" class="pagModal">
+                        <div class="pagContenidoModal">
+                            <span class="pagCerrarModal" onclick="pagCerrarModalEntEtiq(<?php echo $etiqueta['id_etiqueta'];?>)">X</span>
+                            <p class="pagContenidoModalEntradaEtiq"> Entradas asociadas: <br>
+                                <?php 
+                                foreach ($resultadoTextoBien as $textoBien) { ?>
+                                    <span class="pagContenidoModalCadaEntrada"><?php echo $textoBien["texto"];?></span>
+                                    <?php    
+                                }
+                                ?>
+                            </p>
                         </div>
-                    <?php
-                    }
-                }
-            ?>
-                    
-                        
-                    
-            <?php
-                
-
+                    </div>
+                <?php
+            }
+            /* FIN MODAL ENTRADAS SEGÚN ETIQUETA */
             ?>
         </div>
 </body>
