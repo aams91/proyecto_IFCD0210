@@ -21,7 +21,9 @@
 
 .pagCerrarModal {
     color: #aaa;
-    float: right;
+    float: left;
+    width: 5%;
+    text-align: center;
     font-size: 28px;
     font-weight: bold;
 }
@@ -59,8 +61,32 @@ li.cadaEtiquetaRelacion {
 .pagContenidoModalCadaEntrada {
     border: 1px solid #ccc;
     padding: 2px;
+    display: flex;
+    margin: 5px 0;
 }
 
 .cadaEtiquetaRelacion:hover {
     cursor: pointer;
+}
+
+#entradasAsoc {
+    float: left;
+    width: 95%;
+}
+
+#pagBorrarEtiq:hover {
+    cursor: pointer;
+    font-weight: 600;
+
+}
+
+.pagContenidoModalEntrada {
+    width: 95%;
+    float: left;
+}
+
+
+#pagSpanEditarEnt:hover {
+    cursor: pointer;
+    font-weight: 600;
 }

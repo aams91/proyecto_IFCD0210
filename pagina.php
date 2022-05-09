@@ -47,18 +47,30 @@ chequearSesion();
             ?>
             <div id="pagDivModalEnt_<?php echo $entrada["id_entrada"]?>" class="pagModal">
                 <div class="pagContenidoModal">
-                    <span class="pagCerrarModal" onclick="pagCerrarModalEnt(<?php echo $entrada['id_entrada'];?>)">X</span>
-                    <p class="pagContenidoModalEntrada"><?php echo $entrada["texto"];?></p>
-                    <p class="pagContenidoModalEtiq">Etiquetas: 
+                    <div id="pagContenidoModalDefecto" style="display: block ;">
+                        <p class="pagContenidoModalEntrada"><?php echo $entrada["texto"];?></p>
+                        <span class="pagCerrarModal" onclick="pagCerrarModalEnt(<?php echo $entrada['id_entrada'];?>)">X</span>
+                        <p class="pagContenidoModalEtiq">Etiquetas: 
                         <?php 
                         foreach ($resultadoCadaEtiqEntrada as $etiqEntrada) {
-                        ?>
+                            ?>
                             <span class="pagContenidoModalEtiqCadaEtiq"><?php echo $etiqEntrada["nombre"];?></span>
                             <?php 
                         }
                         ?>
-                    </p>
+                        </p>
+                        <span id="pagSpanEditarEnt" onclick="pagInputEditarEntrada()">Editar</span>
+                    </div>
+                    <!-- COMIENZO CONTENIDO ESCONDIDO POR DEFECTO -->
+                    <div id="contenidoModalInputEdicion" style="display: none;">
+                        <form action="ediciones.php">
+                            <textarea name="adicionEditada" id="adicionEditada" cols="30" rows="10" oninput="pagContarCarEdicion()"><?php echo $entrada["texto"];?></textarea>
+                            <div id="pagContadorCarEdicion">0/995</div>
+                        </form>
+                    </div>
+                <!-- FIN CONTENIDO ESCONDIDO POR DEFECTO -->
                 </div>
+                
             </div>
             <!-- FIN MODAL ENTRADAS -->
         <?php
@@ -78,7 +90,7 @@ chequearSesion();
                 $resultadoEtiquetasInput = $accesoEtiquetasInput->consultar($consultaAccesoEtiquetasInput)->fetch_all(MYSQLI_ASSOC);
             ?>
             <label for="inputEtiquetas">Etiquetas</label>
-            <input type="text" name="inputEtiqueta" id="inputEtiqueta" placeholder="etiqueta">
+            <input type="text" name="inputEtiqueta" id="inputEtiqueta" placeholder="etiqueta"> <span id="pagBorrarEtiq" onclick="pagBorrarEtiq()">Borrar etiquetas</span>
             <br><br>
             <div id="todasEtiquetasInput">
                 <?php 
@@ -120,24 +132,25 @@ chequearSesion();
 
             /* MODAL ENTRADAS SEGÚN ETIQUETA */
             foreach ($resultadoEtiquetasRelacion as $etiqueta) {
-                    $etiquetaIDEtiqueta = $etiqueta['id_etiqueta'];
-                    $accesoTextoBien = new ConectarDB;
-                    $consultaTextoBien = "SELECT DISTINCT texto FROM entradas INNER JOIN etiq_entradas ON etiq_entradas.id_entrada = entradas.id_entrada INNER JOIN usuarios ON usuarios.id_usuario = entradas.id_usuario WHERE usuarios.usuario = '$usuario' AND etiq_entradas.id_etiqueta = '$etiquetaIDEtiqueta';";
-                    $resultadoTextoBien = $accesoTextoBien->consultar($consultaTextoBien)->fetch_all(MYSQLI_ASSOC);
-                    ?>
-                    <div id="pagDivModalEntSegunEtiq_<?php echo $etiqueta['id_etiqueta'];?>" class="pagModal">
-                        <div class="pagContenidoModal">
-                            <span class="pagCerrarModal" onclick="pagCerrarModalEntEtiq(<?php echo $etiqueta['id_etiqueta'];?>)">X</span>
-                            <p class="pagContenidoModalEntradaEtiq"> Entradas asociadas: <br>
-                                <?php 
-                                foreach ($resultadoTextoBien as $textoBien) { ?>
-                                    <span class="pagContenidoModalCadaEntrada"><?php echo $textoBien["texto"];?></span>
-                                    <?php    
-                                }
-                                ?>
-                            </p>
-                        </div>
+                $etiquetaIDEtiqueta = $etiqueta['id_etiqueta'];
+                $accesoTextoBien = new ConectarDB;
+                $consultaTextoBien = "SELECT DISTINCT texto FROM entradas INNER JOIN etiq_entradas ON etiq_entradas.id_entrada = entradas.id_entrada INNER JOIN usuarios ON usuarios.id_usuario = entradas.id_usuario WHERE usuarios.usuario = '$usuario' AND etiq_entradas.id_etiqueta = '$etiquetaIDEtiqueta';";
+                $resultadoTextoBien = $accesoTextoBien->consultar($consultaTextoBien)->fetch_all(MYSQLI_ASSOC);
+                ?>
+                <div id="pagDivModalEntSegunEtiq_<?php echo $etiqueta['id_etiqueta'];?>" class="pagModal">
+                    <div class="pagContenidoModal">
+                        <span id="entradasAsoc">Entradas asociadas:</span>
+                        <span class="pagCerrarModal" onclick="pagCerrarModalEntEtiq(<?php echo $etiqueta['id_etiqueta'];?>)">X</span>
+                        <p class="pagContenidoModalEntradaEtiq"> 
+                            <?php 
+                            foreach ($resultadoTextoBien as $textoBien) { ?>
+                                <span class="pagContenidoModalCadaEntrada"><?php echo $textoBien["texto"];?></span>
+                                <?php    
+                            }
+                            ?>
+                        </p>
                     </div>
+                </div>
                 <?php
             }
             /* FIN MODAL ENTRADAS SEGÚN ETIQUETA */

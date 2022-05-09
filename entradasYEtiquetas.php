@@ -36,6 +36,7 @@ include("funciones.php");
     $accesoFechaCreacion->cerrar();
 
     // Insertar texto
+    $texto = addslashes($texto);
     $accesoInsertar = new ConectarDB;
     $consultaInsertar = "INSERT INTO entradas (id_usuario, id_entrada, texto, hora_creacion, fecha_creacion, animo) VALUES ('$idUsuario', NULL, '$texto', '$horaCreacion', '$fechaCreacion', NULL);";
     $resultadoInsertar = $accesoInsertar->consultar($consultaInsertar);

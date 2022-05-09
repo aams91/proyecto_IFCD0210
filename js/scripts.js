@@ -20,6 +20,12 @@ function pagContarCar() {
     document.getElementById("pagContadorCar").innerHTML = longVerdad + "/" + maxLong;
 }
 
+function pagContarCarEdicion() {
+    maxLongEd = document.getElementById("adicionEditada").getAttribute("maxlength");
+    longVerdadEd = document.getElementById("adicionEditada").value.length;
+    document.getElementById("pagContadorCarEdicion").innerHTML = longVerdadEd + "/" + maxLongEd;
+}
+
 /* MODAL */
 
 function pagAbrirModalEnt(id) {
@@ -81,52 +87,26 @@ function pagManejarEtiquetas() {
 
 
 function pagPintarEtiquetaInput(etq) {
-    console.log(etq);
     document.getElementById("inputEtiqueta").value += etq + ", ";
-    /* document.getElementById("cadaEtiqueta_" + id).style.color = "red"; */
-    // ESTO YA FUNCIONA, AHORA HACER UN IF PARA CAMBIARLE EL COLOR SI SE SELECCIONA Y OTRO IF PARA QUE SE INCLUYA EN EL ARRAY SI ESTÁ SELECCIONADA
 }
 
 
-
-
-
-/* window.onlick = function (event) {
+/* window.onclick = function (event) {
     if (event.target == document.getElementById("pagDivModal")) {
         document.getElementById("pagDivModal").style.display = "none";
     }
-} */
+}  */
 
-
-
-/* 
-function editar() {
-    console.log(4+9);
-   
+function pagBorrarEtiq() {
+    document.getElementById("inputEtiqueta").value = "";
 }
 
-
-function insertarYRepintar() {
-    console.log(5+9);
-    var adicion = document.getElementById("adicion").value;
-    var etiquetas = document.getElementById("inputEtiquetas").value;
-    var JsonEtiquetas = JSON.stringify(etiquetas);
-    
-    var ajaxURL = "insertarYRepintar.php";
-    var solicitudAjax = new XMLHttpRequest();
-    solicitudAjax.onreadystatechange = function() {
-    if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
-            respuesta = solicitudAjax.responseText;
-            document.getElementById("todasEntradas").innerHTML = respuesta; 
-           
+function pagInputEditarEntrada() {
+    console.log(2+8);
+    if (document.getElementById("pagContenidoModalDefecto").style.display === "block") {
+        document.getElementById("pagContenidoModalDefecto").style.display = "none";
     }
-    solicitudAjax.open("GET", ajaxURL + "?adicion=" + adicion + "&etiquetas=" + JsonEtiquetas);
-
-    solicitudAjax.send(); 
-    
-
-
-}}
-
-
- */
+    if (document.getElementById("contenidoModalInputEdicion").style.display === "block") {
+        document.getElementById("contenidoModalInputEdicion").style.display = "block";
+    }
+}
