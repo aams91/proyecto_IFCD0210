@@ -47,22 +47,23 @@ chequearSesion();
             ?>
             <div id="pagDivModalEnt_<?php echo $entrada["id_entrada"]?>" class="pagModal">
                 <div class="pagContenidoModal">
-                    <div id="pagContenidoModalDefecto" style="display: block ;">
+                    <div id="pagContenidoModalDefecto_<?php echo $entrada["id_entrada"]?>" >
                         <p class="pagContenidoModalEntrada"><?php echo $entrada["texto"];?></p>
                         <span class="pagCerrarModal" onclick="pagCerrarModalEnt(<?php echo $entrada['id_entrada'];?>)">X</span>
-                        <p class="pagContenidoModalEtiq">Etiquetas: 
+                        <p class="pagContenidoModalEtiq"> <span class="pagContenidoModalSpanEtiq">Etiquetas:</span> 
                         <?php 
                         foreach ($resultadoCadaEtiqEntrada as $etiqEntrada) {
                             ?>
-                            <span class="pagContenidoModalEtiqCadaEtiq"><?php echo $etiqEntrada["nombre"];?></span>
+                            <span class="pagContenidoModalEtiqCadaEtiq"><?php echo $etiqEntrada["nombre"];?></span> <br>
                             <?php 
                         }
                         ?>
+                        <span id="pagSpanEditarEnt" onclick="pagInputEditarEntrada(<?php echo $entrada['id_entrada']?>)">Editar</span>
                         </p>
-                        <span id="pagSpanEditarEnt" onclick="pagInputEditarEntrada()">Editar</span>
+                        
                     </div>
                     <!-- COMIENZO CONTENIDO ESCONDIDO POR DEFECTO -->
-                    <div id="contenidoModalInputEdicion" style="display: none;">
+                    <div id="contenidoModalInputEdicion_<?php echo $entrada['id_entrada']?>" style="display:none">
                         <form action="ediciones.php">
                             <textarea name="adicionEditada" id="adicionEditada" cols="30" rows="10" oninput="pagContarCarEdicion()"><?php echo $entrada["texto"];?></textarea>
                             <div id="pagContadorCarEdicion">0/995</div>

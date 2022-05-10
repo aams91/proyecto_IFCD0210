@@ -101,12 +101,10 @@ function pagBorrarEtiq() {
     document.getElementById("inputEtiqueta").value = "";
 }
 
-function pagInputEditarEntrada() {
-    console.log(2+8);
-    if (document.getElementById("pagContenidoModalDefecto").style.display === "block") {
-        document.getElementById("pagContenidoModalDefecto").style.display = "none";
+function pagInputEditarEntrada(id) {
+    document.getElementById("pagContenidoModalDefecto_" + id).style.display = "none";
+    document.getElementById("contenidoModalInputEdicion_" + id).style.display = "block";
     }
-    if (document.getElementById("contenidoModalInputEdicion").style.display === "block") {
-        document.getElementById("contenidoModalInputEdicion").style.display = "block";
-    }
-}
+/*     if (document.getElementById("contenidoModalInputEdicion").style.display == "none") {
+        
+    } */
