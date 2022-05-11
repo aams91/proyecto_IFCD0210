@@ -39,7 +39,7 @@ chequearSesion();
                     </span>
             </div> 
 
-            <!-- MODAL ENTRADAS -->
+            <!-- COMIENZO MODAL ENTRADAS -->
             <?php 
             $accesoCadaEtiqEntrada = new ConectarDB;
             $consultaCadaEtiqEntrada = "SELECT etiquetas.nombre FROM etiquetas INNER JOIN etiq_entradas ON etiquetas.id_etiqueta = etiq_entradas.id_etiqueta INNER JOIN entradas ON entradas.id_entrada = etiq_entradas.id_entrada WHERE entradas.id_entrada = $entradaIDEntrada";
@@ -47,9 +47,10 @@ chequearSesion();
             ?>
             <div id="pagDivModalEnt_<?php echo $entrada["id_entrada"]?>" class="pagModal">
                 <div class="pagContenidoModal">
+                    <span class="pagCerrarModal" onclick="pagCerrarModalEnt(<?php echo $entrada['id_entrada'];?>)">X</span>
                     <div id="pagContenidoModalDefecto_<?php echo $entrada["id_entrada"]?>" >
                         <p class="pagContenidoModalEntrada"><?php echo $entrada["texto"];?></p>
-                        <span class="pagCerrarModal" onclick="pagCerrarModalEnt(<?php echo $entrada['id_entrada'];?>)">X</span>
+                        
                         <p class="pagContenidoModalEtiq"> <span class="pagContenidoModalSpanEtiq">Etiquetas:</span> 
                         <?php 
                         foreach ($resultadoCadaEtiqEntrada as $etiqEntrada) {
@@ -58,25 +59,26 @@ chequearSesion();
                             <?php 
                         }
                         ?>
-                        <span id="pagSpanEditarEnt" onclick="pagInputEditarEntrada(<?php echo $entrada['id_entrada']?>)">Editar</span>
                         </p>
-                        
+                        <span id="pagSpanEditarEnt" onclick="pagInputEditarEntrada(<?php echo $entrada['id_entrada']?>)">Editar</span>
                     </div>
                     <!-- COMIENZO CONTENIDO ESCONDIDO POR DEFECTO -->
-                    <div id="contenidoModalInputEdicion_<?php echo $entrada['id_entrada']?>" style="display:none">
-                        <form action="ediciones.php">
-                            <textarea name="adicionEditada" id="adicionEditada" cols="30" rows="10" oninput="pagContarCarEdicion()"><?php echo $entrada["texto"];?></textarea>
-                            <div id="pagContadorCarEdicion">0/995</div>
-                        </form>
+                    <div id="contenidoModalInputEdicion_<?php echo $entrada['id_entrada']?>" style="display:none">                
+                            <form method="POST" id="pagFormularioEdicion_<?php echo $entrada['id_entrada'];?>">
+                                <textarea name="adicionEditada" class="adicionEditada" id="adicionEditada_<?php echo $entrada['id_entrada'];?>" cols="30" rows="10" maxlength="995" oninput="pagContarCarEdicion(<?php echo $entrada['id_entrada'];?>)"><?php echo $entrada["texto"];?></textarea>
+                                <div id="pagContadorCarEdicion_<?php echo $entrada['id_entrada'];?>">0/995</div>
+                                <button id="btnEnviarEditar" onclick="pagEditarEntradas(<?php echo $entrada['id_entrada'];?>)">Enviar</button>
+                            </form>
+                        
                     </div>
-                <!-- FIN CONTENIDO ESCONDIDO POR DEFECTO -->
+                    <!-- FIN CONTENIDO ESCONDIDO POR DEFECTO -->
                 </div>
                 
             </div>
             <!-- FIN MODAL ENTRADAS -->
         <?php
         }
-                $accesoCadaEtiqEntrada->cerrar();
+            $accesoCadaEtiqEntrada->cerrar();
         $accesoEntradas->cerrar();
         ?>
         </div>
@@ -95,13 +97,13 @@ chequearSesion();
             <br><br>
             <div id="todasEtiquetasInput">
                 <?php 
-                    foreach ($resultadoEtiquetasInput as $etiqueta) {   
+                foreach ($resultadoEtiquetasInput as $etiqueta) {   
                     ?>
-                        <span class="cadaEtiquetaInput" onclick="pagPintarEtiquetaInput('<?php echo $etiqueta['nombre'];?>')" id="cadaEtiqueta_<?php echo $etiqueta['id_etiqueta'];?>" data-id-etiqueta="<?php echo $etiqueta['id_etiqueta'];?>">
-                            <?php echo $etiqueta["nombre"];?>
-                        </span>
+                    <span class="cadaEtiquetaInput" onclick="pagPintarEtiquetaInput('<?php echo $etiqueta['nombre'];?>')" id="cadaEtiqueta_<?php echo $etiqueta['id_etiqueta'];?>" data-id-etiqueta="<?php echo $etiqueta['id_etiqueta'];?>">
+                        <?php echo $etiqueta["nombre"];?>
+                    </span>
                     <?php
-                    }
+                }
             }
                     ?>
             </div>

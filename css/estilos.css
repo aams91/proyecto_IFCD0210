@@ -77,7 +77,6 @@ li.cadaEtiquetaRelacion {
 #pagBorrarEtiq:hover {
     cursor: pointer;
     font-weight: 600;
-
 }
 
 .pagContenidoModalEntrada {
@@ -87,6 +86,11 @@ li.cadaEtiquetaRelacion {
 
 
 #pagSpanEditarEnt:hover {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.cadaEtiquetaRelacion:hover {
     cursor: pointer;
     font-weight: 600;
 }

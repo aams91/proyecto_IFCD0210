@@ -20,13 +20,13 @@ function pagContarCar() {
     document.getElementById("pagContadorCar").innerHTML = longVerdad + "/" + maxLong;
 }
 
-function pagContarCarEdicion() {
-    maxLongEd = document.getElementById("adicionEditada").getAttribute("maxlength");
-    longVerdadEd = document.getElementById("adicionEditada").value.length;
-    document.getElementById("pagContadorCarEdicion").innerHTML = longVerdadEd + "/" + maxLongEd;
+function pagContarCarEdicion(id) {
+    longVerdadEd = document.getElementById("adicionEditada_" + id).value.length;
+    maxLongEd = document.getElementById("adicionEditada_" + id).getAttribute("maxlength");
+    document.getElementById("pagContadorCarEdicion_" + id).innerHTML = longVerdadEd + "/" + maxLongEd;
 }
 
-/* MODAL */
+/* COMIENZO MODALES */
 
 function pagAbrirModalEnt(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
@@ -44,7 +44,9 @@ function pagCerrarModalEntEtiq(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
 }
 
-var arrayInput = new Array ();
+/* FIN MOODALES */
+
+var arrayInput = new Array (); // no sirve de nada y está en la siguiente funciónm, que tampoco sirve para nada
 function cambiarlenombre() {
     /* CON ESTO VOY AGARRANDO LO QUE MANDO CON "NUEVA ETIQUETA" EN EL INPUT Y LO VOY AGREGANDO A UN ARRAY
     var loDelInput = document.getElementById("inputEtiqueta").value;
@@ -68,34 +70,39 @@ function cambiarlenombre() {
 
 // AGARRAR EL ARRAYINPUT Y PASARLO A JSON PARA MANDARLO
 
-function pagManejarEtiquetas() {
+function pagManejarEtiquetas() { // pa ná
     var ajaxURL = "entradasYEtiquetas.php";
-        var solicitudAjax = new XMLHttpRequest();
-        solicitudAjax.onreadystatechange = function() {
-            if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
-                    respuesta = solicitudAjax.responseText;
-                   
-            }
-            var JSONAMandar = JSON.stringify(arrayInput);
-            solicitudAjax.open("POST", ajaxURL, true);
+    var solicitudAjax = new XMLHttpRequest();
+    solicitudAjax.onreadystatechange = function() {
+        if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
+            respuesta = solicitudAjax.responseText;                   
+        }
+        var JSONAMandar = JSON.stringify(arrayInput);
+        solicitudAjax.open("POST", ajaxURL, true);
         
-            solicitudAjax.send(JSONAMandar);
-
-        
-        }        
+        solicitudAjax.send(JSONAMandar);
+    }        
 }
 
+function pagEditarEntradas(id) {
+    var ajaxURL = "ediciones.php";
+    var solicitudAjax = new XMLHttpRequest();
+    solicitudAjax.onreadystatechange = function() {
+        if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
+            respuesta = solicitudAjax.responseText;     
+            document.getElementById("contenidoModalInputEdicion_" + id).style.display = "block";
+            document.getElementById("contenidoModalInputEdicion_" + id).innerHTML = respuesta;
+
+        }
+    
+    solicitudAjax.open("GET", ajaxURL, true);
+    solicitudAjax.send(id);
+    }
+}
 
 function pagPintarEtiquetaInput(etq) {
     document.getElementById("inputEtiqueta").value += etq + ", ";
 }
-
-
-/* window.onclick = function (event) {
-    if (event.target == document.getElementById("pagDivModal")) {
-        document.getElementById("pagDivModal").style.display = "none";
-    }
-}  */
 
 function pagBorrarEtiq() {
     document.getElementById("inputEtiqueta").value = "";
@@ -103,7 +110,7 @@ function pagBorrarEtiq() {
 
 function pagInputEditarEntrada(id) {
     document.getElementById("pagContenidoModalDefecto_" + id).style.display = "none";
-    document.getElementById("contenidoModalInputEdicion_" + id).style.display = "block";
+    document.getElementById("contenidoModalInputEdicion_" + id).style.display = "inline-block";
     }
 /*     if (document.getElementById("contenidoModalInputEdicion").style.display == "none") {
         

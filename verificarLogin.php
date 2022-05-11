@@ -29,10 +29,6 @@ if ($_POST) {
             <?php
         }
         
-    } else {
-        // Esto no va a ser nunca, puesto que los input del formulario tienen required y no se pueden dejar vacíos
-        $mensajeError= "Los campos son obligatorios";
-        echo $mensajeError;
     }
     $acceso->cerrar();
 }

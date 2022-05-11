@@ -6,12 +6,8 @@ include("funciones.php");
     $usuario = $_SESSION["usuario"];
     $texto = $_POST["adicion"];
     $etiqInput = $_POST["inputEtiqueta"]; //esto es un string
-    echo "La variable post:";
-    var_dump($_POST);
     $todasEtiquetasInput1 = trim($etiqInput);
     $todasEtiquetasInput = rtrim($todasEtiquetasInput1, ",");
-    echo "<br><br><br>Las etiquetas sin espacios:";
-    var_dump($todasEtiquetasInput);
 
 
     // Sacar id_usuario
@@ -44,9 +40,6 @@ include("funciones.php");
 
     // Insertar etiquetas
     $arrayEtiqInput = explode(", ", $todasEtiquetasInput);
-    echo "<br><br><br>Las etiquetas en array: <pre>";
-    var_dump($arrayEtiqInput);
-    echo "</pre>";
 
     $etiqApelotonadas = "";
     $accesoVerEtiquetas = new ConectarDB;
@@ -57,19 +50,11 @@ include("funciones.php");
     }
     
     $arrayEtiqBD = explode(",", $etiqApelotonadas); 
-    echo "<br><br><br>ñññe<pre>";
-    var_dump($arrayEtiqBD);
-    echo "</pre>";
     $accesoVerEtiquetas->cerrar();
 
     $lasEtiqQueNoEstan = array_diff($arrayEtiqInput, $arrayEtiqBD);
-    echo "<br><br><br>Diferencias:<pre>";
-    var_dump($lasEtiqQueNoEstan);
-
 
     $lasEtiqQueSiEstan = array_diff($arrayEtiqInput, $lasEtiqQueNoEstan);
-    echo "<br><br><br>Diferencias:<pre>";
-    var_dump($lasEtiqQueSiEstan);
 
     $accesoInsertarEtiquetas = new ConectarDB;
     foreach ($lasEtiqQueNoEstan as $cadaEtiqueta) {
