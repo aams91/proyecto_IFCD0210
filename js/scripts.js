@@ -111,7 +111,10 @@ function pagBorrarEtiq() {
 function pagInputEditarEntrada(id) {
     document.getElementById("pagContenidoModalDefecto_" + id).style.display = "none";
     document.getElementById("contenidoModalInputEdicion_" + id).style.display = "inline-block";
-    }
-/*     if (document.getElementById("contenidoModalInputEdicion").style.display == "none") {
-        
-    } */
+}
+
+function pagCerrarYAbrirModales(id) {
+    pagCerrarModalEntEtiq(id);
+    pagAbrirModalEnt(id);
+
+}

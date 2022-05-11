@@ -146,8 +146,12 @@ chequearSesion();
                         <span class="pagCerrarModal" onclick="pagCerrarModalEntEtiq(<?php echo $etiqueta['id_etiqueta'];?>)">X</span>
                         <p class="pagContenidoModalEntradaEtiq"> 
                             <?php 
-                            foreach ($resultadoTextoBien as $textoBien) { ?>
-                                <span class="pagContenidoModalCadaEntrada"><?php echo $textoBien["texto"];?></span>
+                            foreach ($resultadoTextoBien as $textoBien) {
+                                $textito = $textoBien["texto"]; 
+                                
+                                $consultaSacarIDEntrada = "SELECT entradas.id_entrada FROM entradas WHERE texto = '$textito'";
+                                $resultadoSacarIDEntrada = $accesoTextoBien->consultar($consultaSacarIDEntrada)->fetch_all(MYSQLI_ASSOC);?>
+                                <span class="pagContenidoModalCadaEntrada" onclick="pagCerrarYAbrirModales(<?php foreach ($resultadoSacarIDEntrada as $cadaEntrada) { echo $cadaEntrada['id_entrada'];}?>)"><?php echo $textoBien["texto"];?></span>
                                 <?php    
                             }
                             ?>
