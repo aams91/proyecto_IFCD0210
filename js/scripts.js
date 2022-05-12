@@ -44,6 +44,11 @@ function pagCerrarModalEntEtiq(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
 }
 
+function pagCerrarYAbrirModales(id) {
+    document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
+    document.getElementById("pagDivModalEnt_" + id).style.display = "block";
+}
+
 /* FIN MOODALES */
 
 var arrayInput = new Array (); // no sirve de nada y está en la siguiente funciónm, que tampoco sirve para nada
@@ -113,8 +118,3 @@ function pagInputEditarEntrada(id) {
     document.getElementById("contenidoModalInputEdicion_" + id).style.display = "inline-block";
 }
 
-function pagCerrarYAbrirModales(id) {
-    pagCerrarModalEntEtiq(id);
-    pagAbrirModalEnt(id);
-
-}
