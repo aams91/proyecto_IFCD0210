@@ -121,3 +121,8 @@ function pagInputEditarEntrada(id) {
     document.getElementById("contenidoModalInputEdicion_" + id).style.display = "inline-block";
 }
 
+function cambiarOrdenFecha(id) {
+    fechaCreacion = document.getElementById("fechaCreacion_" + id).innerHTML.split("-");
+    fechaCreacion = fechaCreacion[2] + "-" + fechaCreacion[1] + "-" + fechaCreacion[0];
+    document.getElementById("fechaCreacion_" + id).innerHTML = fechaCreacion;
+}

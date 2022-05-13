@@ -27,15 +27,15 @@ chequearSesion();
                 <div id="entTorcido" class="torcido">Entradas</div>
                 <?php
                 $accesoEntradas = new ConectarDB;
-                $consultaAccesoEntradas = "SELECT entradas.texto, entradas.id_entrada FROM entradas, usuarios WHERE usuarios.usuario = '$usuario' AND usuarios.id_usuario = entradas.id_usuario;";
+                $consultaAccesoEntradas = "SELECT entradas.texto, entradas.id_entrada, entradas.fecha_creacion FROM entradas, usuarios WHERE usuarios.usuario = '$usuario' AND usuarios.id_usuario = entradas.id_usuario;";
                 $resultadoEntradas = $accesoEntradas->consultar($consultaAccesoEntradas)->fetch_all(MYSQLI_ASSOC);
-                $accesoEntradas->cerrar();  
+                $accesoEntradas->cerrar(); 
 
                 foreach ($resultadoEntradas as $entrada) { 
                     $entradaIDEntrada = $entrada['id_entrada'];   ?>
                     <div class="entrada" data-id-entrada="<?php echo $entrada["id_entrada"];?>">
                         <?php   echo $entrada["texto"];   ?> 
-                        <span class="pagSpanModales" id="pagBotonModal" onclick="pagAbrirModalEntrada(<?php echo $entrada['id_entrada'];?>)"><mark>Abrir modal</mark></span>
+                        <span class="pagSpanModales" id="pagBotonModal" onclick="pagAbrirModalEntrada(<?php echo $entrada['id_entrada'];?>); cambiarOrdenFecha(<?php echo $entrada['id_entrada'];?>)"><mark>Abrir modal</mark></span>
                     </div> <?php
                     include("modalEntradas.php");
                 }   ?>
