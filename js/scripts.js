@@ -28,24 +28,27 @@ function pagContarCarEdicion(id) {
 
 /* COMIENZO MODALES */
 
-function pagAbrirModalEnt(id) {
+function pagAbrirModalEntrada(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
 }
 
-function pagCerrarModalEnt(id) {
+function pagCerrarModalEntrada(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "none";
 }
 
-function pagAbrirModalEntrada(id) {
+function pagAbrirModalEtiqueta(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "block";
 }
 
-function pagCerrarModalEntEtiq(id) {
+function pagCerrarModalEntSegunEtiq(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
 }
 
-function pagCerrarYAbrirModales(id) {
+function pagCerrarsito(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
+}
+
+function pagAbrirsito(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
 }
 

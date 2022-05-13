@@ -1,3 +1,28 @@
+body.pagina {
+    display: flex;
+    flex-direction: column;
+}
+
+#etiqYEnt {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 15px 15px 15px 0;
+}
+
+#todasEtiquetasRelacion {
+    padding-top: 0;
+    float: left;
+    width: 30%;
+    text-align: center;
+}
+
+#todasEntradas {
+    float: left;
+    width: 70%;
+}
+
 .pagModal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -54,10 +79,6 @@ li.cadaEtiquetaRelacion {
     list-style: none;
 }
 
-.todasEtiquetasRelacion ul {
-    padding-left: 0;
-}
-
 .pagContenidoModalCadaEntrada {
     border: 1px solid #ccc;
     padding: 2px;
@@ -94,3 +115,36 @@ li.cadaEtiquetaRelacion {
     cursor: pointer;
     font-weight: 600;
 }
+
+#todasEtiquetasRelacion ul {
+    padding-left: 0;
+    margin: 0;
+}
+
+#pagFormularioPpal {
+    margin: 0 15px;
+}
+
+#etiqTorcido {
+    display: inline-block;
+    transform: rotate(270deg);
+    position: relative;
+    top: 40px;
+    left: -60px;
+}
+
+#entTorcido {
+    display: inline-block;
+    transform: rotate(270deg);
+    position: relative;
+    top: 40px;
+    left: -20px;
+}
+
+.entrada {
+    padding-left: 30px;
+}
+/* 
+.torcido {
+
+} */
