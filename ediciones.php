@@ -3,20 +3,22 @@ include("funciones.php");
 session_start();
 chequearSesion();
 
+echo "<pre>";
+var_dump($_POST);
+echo "</pre>";
 
-echo $_POST["adicionEditada"];
-/* SACAR TEXTO INTRODUCIDO
-CONECTAR A LA BASE DE DATOS
-HACER LA CONSULTA CON EL UPDATE
-DEVOLVER BÚSQUEDA DE LA ENTRADA */
+if ($_POST["adicionEditada"]) {
 
-/* $textoEditado = $_POST["adicionEditada"];
+    $textoEditado = $_POST["adicionEditada"];
+    $idEntrada = $_POST["idEntrada"];
 
-$conexionEditar = new ConectarDB;
-$consultaEditar = "UPDATE `entradas` SET `texto` = 'probando más de una entraditaa en una etiqueta' WHERE `entradas`.`id_entrada` = 305;"
+    $conexionEditar = new ConectarDB;
+    $consultaEditarEntrada = "UPDATE entradas SET texto = '$textoEditado' WHERE entradas.id_entrada = $idEntrada;";
+    $resultadoEditar = $conexionEditar->consultar($consultaEditarEntrada);
+    $conexionEditar->cerrar();
 
- */
-
-
-
+    header("Location: pagina.php"); 
+}
 ?>
+
+<!-- HACER LO MISMO PERO CON LAS ETIQUETAS -->

@@ -26,11 +26,45 @@ function pagContarCarEdicion(id) {
     document.getElementById("pagContadorCarEdicion_" + id).innerHTML = longVerdadEd + "/" + maxLongEd;
 }
 
+function siguienteEntrada(id) {
+
+}
+
+function anteriorEntrada(id) {
+    
+
+
+}
+
 /* COMIENZO MODALES */
+
+/* ↓ ARREGLAR ESTO */
 
 function pagAbrirModalEntrada(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
+
+    ant = document.getElementById("pagDivModalEnt_" + id).previousElementSibling.previousElementSibling.id;
+    console.log("Anterior " + ant);
+    antID = ant.split("_");
+    if (!antID[1]) {
+        document.getElementById("btnAnteriorEntrada").style.display = "none"; } 
+    
+
+    actual = document.getElementById("pagDivModalEnt_" + id).id;
+    console.log("Actual " + actual);
+    nodos = document.getElementById("todasEntradas").childNodes;
+    ultNodo = nodos.length-2;
+    if (document.getElementById("pagDivModalEnt_" + id).nextElementSibling) {
+        sig = document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling.id;} 
+
+    if (nodos[ultNodo].id === actual) {
+        console.log("Igual");
+        document.getElementById("btnSiguienteEntrada").style.display = "none"; }
+    
 }
+
+/* ↑ ARREGLAR ESTO */
+
 
 function pagCerrarModalEntrada(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "none";
@@ -78,7 +112,7 @@ function cambiarlenombre() {
 
 // AGARRAR EL ARRAYINPUT Y PASARLO A JSON PARA MANDARLO
 
-function pagManejarEtiquetas() { // pa ná
+/* function pagManejarEtiquetas() { // pa ná
     var ajaxURL = "entradasYEtiquetas.php";
     var solicitudAjax = new XMLHttpRequest();
     solicitudAjax.onreadystatechange = function() {
@@ -90,23 +124,23 @@ function pagManejarEtiquetas() { // pa ná
         
         solicitudAjax.send(JSONAMandar);
     }        
-}
+} */
 
-function pagEditarEntradas(id) {
+function pagSpanEliminarEnt(id) {
     var ajaxURL = "ediciones.php";
     var solicitudAjax = new XMLHttpRequest();
     solicitudAjax.onreadystatechange = function() {
         if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
             respuesta = solicitudAjax.responseText;     
             document.getElementById("contenidoModalInputEdicion_" + id).style.display = "block";
-            document.getElementById("contenidoModalInputEdicion_" + id).innerHTML = respuesta;
+            console.log(respuesta);
 
         }
     
     solicitudAjax.open("GET", ajaxURL, true);
     solicitudAjax.send(id);
     }
-}
+} 
 
 function pagPintarEtiquetaInput(etq) {
     document.getElementById("inputEtiqueta").value += etq + ", ";
@@ -125,4 +159,9 @@ function cambiarOrdenFecha(id) {
     fechaCreacion = document.getElementById("fechaCreacion_" + id).innerHTML.split("-");
     fechaCreacion = fechaCreacion[2] + "-" + fechaCreacion[1] + "-" + fechaCreacion[0];
     document.getElementById("fechaCreacion_" + id).innerHTML = fechaCreacion;
+}
+
+function cerrarModalEdicion(id) {
+    document.getElementById("contenidoModalInputEdicion_" + id).style.display = "none";
+    document.getElementById("pagContenidoModalDefecto_" + id).style.display = "inline-block";
 }

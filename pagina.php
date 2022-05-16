@@ -54,11 +54,11 @@ chequearSesion();
                         <li class="cadaEtiquetaRelacion" onclick="pagAbrirModalEtiqueta(<?php echo $etiqueta['id_etiqueta'];?>)"><?php echo $etiqueta['nombre'];?></li> 
                         <?php
                     } ?>
-                </ul>  
+                </ul>
 
                 <?php include("modalEtiquetas.php"); ?>
 
-            </div>              
+            </div>
         </div>
         <form id="pagFormularioPpal" action="entradasYEtiquetas.php" method="post"> 
             <textarea name="adicion" id="adicion"  cols="30" rows="5" placeholder="Escribe aquí tu entrada" maxlength="995" oninput="pagContarCar()"></textarea>
@@ -75,7 +75,7 @@ chequearSesion();
             <br><br>
             <div id="todasEtiquetasInput">
                 <?php 
-                foreach ($resultadoEtiquetasInput as $etiqueta) {   
+                foreach ($resultadoEtiquetasInput as $etiqueta) {
                     ?>
                     <span class="cadaEtiquetaInput" onclick="pagPintarEtiquetaInput('<?php echo $etiqueta['nombre'];?>')" id="cadaEtiqueta_<?php echo $etiqueta['id_etiqueta'];?>" data-id-etiqueta="<?php echo $etiqueta['id_etiqueta'];?>">
                         <?php echo $etiqueta["nombre"];?>
