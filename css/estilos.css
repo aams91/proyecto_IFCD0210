@@ -228,7 +228,7 @@ a#btnSiguienteEntrada {
 
 .pagFormulariosEdicion {
     float: left;
-    width: 40%;
+    width: 100%;
 }
 
 .etiquetasModalInputEdicion {
@@ -236,16 +236,31 @@ a#btnSiguienteEntrada {
     width: 50%;
 }
 
-#etiquetasModalEdicion {
+.etiquetasModalEdicion {
     display: flex;
+    flex-direction: row;
+    float: left;
+    width: 90%;
+}
+
+.etiquetasModalEdicion div {
+    margin-bottom: 8px;
+}
+
+.txtareaYBtns {
+    float: left;
+    width: 40%;
+}
+
+#etiquetitas {
     float: left;
     width: 60%;
 }
 
-#etiquetasModalEdicion span {
-    width: 50%;
+#etiquetitas span {
+    width: fit-content;
 }
 
-#etiquetasModalEdicion input {
-    width: 50%;
+#etiquetitas input {
+    width: 30%;
 }

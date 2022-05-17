@@ -29,20 +29,29 @@ $accesoCadaEtiqEntrada->cerrar();     ?>
 
         <!-- COMIENZO CONTENIDO ESCONDIDO POR DEFECTO -->
         <div class="contenidoModalInputEdicion" id="contenidoModalInputEdicion_<?php echo $entrada['id_entrada']?>" style="display:none">                
-            <form class="pagFormulariosEdicion" action="ediciones.php" method="POST" id="pagFormularioEdicion_<?php echo $entrada['id_entrada'];?>">
-                <textarea name="adicionEditada" class="adicionEditada" id="adicionEditada_<?php echo $entrada['id_entrada'];?>" cols="30" rows="10" maxlength="995" oninput="pagContarCarEdicion(<?php echo $entrada['id_entrada'];?>)"><?php echo $entrada["texto"];?></textarea>
-                <input type="hidden" name="idEntrada" id="idEntrada" value="<?php echo $entrada['id_entrada'];?>">
-                <div id="pagContadorCarEdicion_<?php echo $entrada['id_entrada'];?>">0/995</div>
-                <button id="btnEnviarEditar">Enviar</button>
-                <span class="pagSpanModales" id="pagBotonModal" onclick="cerrarModalEdicion(<?php echo $entrada['id_entrada']?>)"><mark>Entrada</mark></span>
-            </form>
-            <div id="etiquetasModalEdicion"> <?php 
-                foreach ($resultadoCadaEtiqEntrada as $etiqEntrada) {      ?>
-                    <span class="cadaEtiqueta" id="etiquetasModalInputEdicion_<?php echo $etiqEntrada['id_etiqueta'];?>"><?php echo $etiqEntrada['nombre'];?></span> <input type="text" name="etiquetaInputEdicion" id="etiquetaEdicion_<?php echo $etiqEntrada['id_etiqueta'];?>" value="<?php echo $etiqEntrada['nombre'];?>"><br>
-                    <?php 
-                } ?>
-                
-            </div>
+            <form action="ediciones.php" method="POST" id="pagFormularioEdicion_<?php echo $entrada['id_entrada'];?>">
+                <div class="txtareaYBtns">
+                    <textarea name="adicionEditada" class="adicionEditada" id="adicionEditada_<?php echo $entrada['id_entrada'];?>" cols="30" rows="10" maxlength="995" oninput="pagContarCarEdicion(<?php echo $entrada['id_entrada'];?>)"><?php echo $entrada["texto"];?></textarea>
+                    <input type="hidden" name="idEntrada" id="idEntrada" value="<?php echo $entrada['id_entrada'];?>">
+                    <input type="hidden" id="etiquetasModificadas" name="etiquetasModificadas" value="">
+                    <div id="pagContadorCarEdicion_<?php echo $entrada['id_entrada'];?>">0/995</div>
+                    <button id="btnEnviarEditar">Enviar</button> <span class="pagSpanModales" id="pagBotonModal" onclick="cerrarModalEdicion(<?php echo $entrada['id_entrada']?>)"><mark>Entrada</mark></span>  
+                </div>    
+                <div id="etiquetitas"> <?php 
+                    foreach ($resultadoCadaEtiqEntrada as $etiqEntrada) {      ?>
+                        <div class="etiquetasModalEdicion"> 
+                            <span onclick="mostrarInputEdicionEtiq(<?php echo $etiqEntrada['id_etiqueta'];?>)" class="cadaEtiqueta" id="etiquetasModalInputEdicion_<?php echo $etiqEntrada['id_etiqueta'];?>"><?php echo $etiqEntrada['nombre'];?></span>
+                                
+                            <input style="display:none" type="text" name="etiquetaInputEdicion_<?php echo $etiqEntrada['id_etiqueta'];?>" id="etiquetaEdicion_<?php echo $etiqEntrada['id_etiqueta'];?>" value="<?php echo $etiqEntrada['nombre'];?>">  
+                                
+                            <span style="display:none" id="signoCheck_<?php echo $etiqEntrada['id_etiqueta'];?>" onclick="agregarEtiqEditInputEscond(<?php echo $etiqEntrada['id_etiqueta'];?>)">✓</span>
+                        </div>
+                        <?php 
+                    } ?>  
+            </div>     
+            </form> 
+            
+
         </div>
         <!-- FIN CONTENIDO ESCONDIDO POR DEFECTO -->
     </div>

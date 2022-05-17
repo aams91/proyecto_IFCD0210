@@ -165,3 +165,25 @@ function cerrarModalEdicion(id) {
     document.getElementById("contenidoModalInputEdicion_" + id).style.display = "none";
     document.getElementById("pagContenidoModalDefecto_" + id).style.display = "inline-block";
 }
+
+/* ↓ AQUÍ - La función aplica al primer elemento donde aparece dicha entrada. Ej.: la etiqueta "musical", si quiero que salga el input para editarla, saldrá en la primera entrada */
+
+function mostrarInputEdicionEtiq(id) {
+    document.getElementById("etiquetaEdicion_" + id).style.display = "inline-block";
+    document.getElementById("signoCheck_" + id).style.display = "inline-block";
+}
+
+function agregarEtiqEditInputEscond(id) {
+    var etiquetas = "";
+    var etq = document.getElementById("etiquetaEdicion_" + id).value;
+    if (document.getElementById("etiquetaEdicion_" + id).style.display = "inline-block") {
+        document.getElementById("etiquetaEdicion_" + id).style.display = "none";
+    }
+    if (document.getElementById("signoCheck_" + id).style.display = "inline-block") {
+        document.getElementById("signoCheck_" + id).style.display = "none";
+    }
+    document.getElementById("etiquetasModalInputEdicion_" + id).innerHTML = etq;
+    etiquetas += etq + ",";
+    document.getElementById("etiquetasModificadas").value += etiquetas;
+    /* ¿Por qué acá lo hace todo bien pero luego al mandar el formulario el input #etiquetasModificadas no recibe lo mandado? */
+}

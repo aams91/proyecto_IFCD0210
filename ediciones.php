@@ -23,4 +23,4 @@ if ($_POST["adicionEditada"]) {
 }
 ?>
 
-<!-- HACER LO MISMO PERO CON LAS ETIQUETAS -->
+<!-- UPDATE etiquetas SET nombre = 'musical' WHERE id_etiqueta = (SELECT id_etiqueta FROM etiquetas WHERE nombre = 'musica'); -->
