@@ -1,6 +1,7 @@
 body.pagina {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    margin: 20px 60px;
 }
 
 #etiqYEnt {
@@ -14,13 +15,13 @@ body.pagina {
 #todasEtiquetasRelacion {
     padding-top: 0;
     float: left;
-    width: 30%;
+    width: 15%;
     text-align: center;
 }
 
 #todasEntradas {
     float: left;
-    width: 70%;
+    width: 90%;
 }
 
 .pagModal {
@@ -38,10 +39,10 @@ body.pagina {
 
 .pagContenidoModal {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 10% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 60%; /* Could be more or less, depending on screen size */
 }
 
 .pagCerrarModal {
@@ -59,25 +60,40 @@ body.pagina {
     cursor: pointer;
 }
 
+#pagFormularioPpal {
+    padding-left: 30px;
+}
+
 .pagSpanModales:hover {
     cursor: pointer;
     color: black;
 }
 
-.cadaEtiquetaInput, .pagContenidoModalEtiqCadaEtiq {
+.contenidoModalInputEdicion {
+    width: 90%;
+    padding-left: 15px;
+}
+
+.cadaEtiqueta, .etiquetasModalInputEdicion, .cadaEtiquetaRelacion {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 2px;
     margin-right: 2px;
+    margin-bottom: 2px;
+    text-align: center;
+}
+.cadaEtiquetaRelacion {
+    width: fit-content;
 }
 
-.cadaEtiquetaInput:hover, .pagContenidoModalEtiqCadaEtiq:hover, .pagContenidoModalCadaEntrada:hover, .cadaEtiquetaRelacion:hover {
+.cadaEtiqueta:hover, .cadaEtiquetaRelacion:hover {
     cursor: pointer;
 }
 
-.pagContenidoModalEtiq {
+p#pagContenidoModalEtiq {
     display: flex;
 }
+
 
 li.cadaEtiquetaRelacion {
     list-style: none;
@@ -88,6 +104,10 @@ li.cadaEtiquetaRelacion {
     padding: 2px;
     display: flex;
     margin: 5px 0;
+}
+
+.pagContenidoModalCadaEntrada:hover {
+    cursor: pointer;
 }
 
 #entradasAsoc {
@@ -116,13 +136,12 @@ li.cadaEtiquetaRelacion {
     font-weight: 600;
 }
 
-#todasEtiquetasRelacion ul {
-    padding-left: 0;
-    margin: 0;
-}
-
-#pagFormularioPpal {
-    margin: 0 15px;
+#todasEtiquetasRelacion {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    width: 90%;
+    align-items: center;
 }
 
 #etiqTorcido {
@@ -143,7 +162,31 @@ li.cadaEtiquetaRelacion {
 
 .entrada {
     padding-left: 30px;
+    width: 100%;
 }
+
+/* ↓ Las tres "columnas" del body */
+
+#bodyIzq {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    width: 75%; 
+}
+
+#bodyDcha {
+    float: left;
+    width: 15%;
+}
+
+.cabecera {
+    width: 10%;
+    position: absolute;
+    right: 60px;
+    text-align: right;
+}
+
+/* ↑ Las tres "columnas del body */
 
 a#btnAnteriorEntrada, a#btnSiguienteEntrada {
     text-decoration: none;
@@ -153,14 +196,18 @@ a#btnAnteriorEntrada, a#btnSiguienteEntrada {
 
 #btnSiguienteEntrada {
     position: relative;
-    top: 310px;
-    left: 90%;
+    top: 200px;
+    left: 79%;
 }
 
 #btnAnteriorEntrada {
     position: relative;
-    top: 310px;
-    left: 4%;
+    top: 200px;
+    left: 15%;
+}
+
+p#fechaCreacion {
+    text-align: right;
 }
   
 a#btnAnteriorEntrada:hover, a#btnSiguienteEntrada:hover {
@@ -177,4 +224,28 @@ a#btnAnteriorEntrada {
 a#btnSiguienteEntrada {
     background-color: #04AA6D;
     color: white;
+}
+
+.pagFormulariosEdicion {
+    float: left;
+    width: 40%;
+}
+
+.etiquetasModalInputEdicion {
+    float: left;
+    width: 50%;
+}
+
+#etiquetasModalEdicion {
+    display: flex;
+    float: left;
+    width: 60%;
+}
+
+#etiquetasModalEdicion span {
+    width: 50%;
+}
+
+#etiquetasModalEdicion input {
+    width: 50%;
 }
