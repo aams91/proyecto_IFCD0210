@@ -48,7 +48,6 @@ function pagAbrirModalEntrada(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
     document.getElementById("pagContenidoModalDefecto_" + id).style.display = "inline-block";
 
-
     /* A PARTIR DE AQUÍ, BOTONES DE ANTERIOR Y SIGUIENTE- QUE HAY QUE ARREGLAR ↓ */
 
     ant = document.getElementById("pagDivModalEnt_" + id).previousElementSibling.previousElementSibling.id;
@@ -58,21 +57,25 @@ function pagAbrirModalEntrada(id) {
         document.getElementById("btnAnteriorEntrada").style.display = "none"; 
     } 
 
-    actual = document.getElementById("pagDivModalEnt_" + id).id;
-    console.log("Actual " + actual);
-    nodos = document.getElementById("todasEntradas").childNodes;
-    ultNodo = nodos.length-2;
-
     /* AQUÍ SE SACA EL ÚLTIMO HIJO 
     document.getElementById("todasEntradas").lastChild.previousElementSibling; */
 
-    if (document.getElementById("pagDivModalEnt_" + id).nextElementSibling) {
-        sig = document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling.id;} 
-        console.log("Siguiente " + sig);
-
-    if (nodos[ultNodo].id === actual) {
+    /* Tengo que:
+        averiguar si su previousElementSibling.previousElementSibling contiene pagDivModalEnt: si sí, mostrar #btnAnteriorEntrada; si no, no mostrarlo
+        para el último, averiguar si el id del lastChild.previousElementSibling.id y su id coinciden: si no, mostrar #btnSIguiente entrada; si sí, no mostrarlo
+        
+        */
+        
+    if (document.getElementById("pagDivModalEnt_" + id).id == document.getElementById("todasEntradas").lastChild.previousElementSibling.id) {
         console.log("Igual");
-        document.getElementById("btnSiguienteEntrada").style.display = "none"; }
+        document.getElementById("btnSiguienteEntrada").style.display = "none";
+    } if (!document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling) {
+        sig = document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling.id;
+        console.log("Siguiente " + sig);
+    } else {
+        document.getElementById("btnSiguienteEntrada").style.display = "inline-block"; 
+    }
+
 
     /* ↑ ARREGLAR ESTO */
 }

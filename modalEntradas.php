@@ -8,8 +8,8 @@ $accesoCadaEtiqEntrada->cerrar();     ?>
 
 <div id="pagDivModalEnt_<?php echo $entrada["id_entrada"]?>" class="pagModal">
 
-    <a id="btnAnteriorEntrada" onclick="anteriorEntrada(<?php echo $entrada['id_entrada']?>)">&#8249;</a>
-    <a id="btnSiguienteEntrada" onclick="siguienteEntrada(<?php echo $entrada['id_entrada']?>)">&#8250;</a>
+    <a style="display:none" id="btnAnteriorEntrada" onclick="anteriorEntrada(<?php echo $entrada['id_entrada']?>)">&#8249;</a>
+    <a style="display:none" id="btnSiguienteEntrada" onclick="siguienteEntrada(<?php echo $entrada['id_entrada']?>)">&#8250;</a>
 
     <div class="pagContenidoModal pagContenidoModalEntradas">
         <span class="pagCerrarModal" onclick="pagCerrarModalEntrada(<?php echo $entrada['id_entrada'];?>)">X</span>

@@ -53,7 +53,7 @@ chequearSesion();
                 $accesoEtiquetasInput->cerrar();     ?>
 
                 <label for="inputEtiquetas">Etiquetas</label>
-                <input type="text" name="inputEtiqueta" id="inputEtiqueta" placeholder="#etiqueta"> <span id="pagBorrarEtiq" onclick="pagBorrarEtiq()">Borrar etiquetas</span>
+                <input type="text" name="inputEtiqueta" id="inputEtiqueta" placeholder="#etiqueta, #etiqueta"> <span id="pagBorrarEtiq" onclick="pagBorrarEtiq()">Borrar etiquetas</span>
                 <br><br>
                 <div id="todasEtiquetasInput">  <?php 
                     foreach ($resultadoEtiquetasInput as $etiqueta) {
