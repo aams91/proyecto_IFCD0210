@@ -38,17 +38,25 @@ function anteriorEntrada(id) {
 
 /* COMIENZO MODALES */
 
-/* ↓ ARREGLAR ESTO */
+
 
 function pagAbrirModalEntrada(id) {
+    if (document.getElementById("contenidoModalInputEdicion_" + id).style.display = "inline-block") {
+        document.getElementById("contenidoModalInputEdicion_" + id).style.display = "none";
+    }
+
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
+    document.getElementById("pagContenidoModalDefecto_" + id).style.display = "inline-block";
+
+
+    /* A PARTIR DE AQUÍ, BOTONES DE ANTERIOR Y SIGUIENTE- QUE HAY QUE ARREGLAR ↓ */
 
     ant = document.getElementById("pagDivModalEnt_" + id).previousElementSibling.previousElementSibling.id;
     console.log("Anterior " + ant);
     antID = ant.split("_");
     if (!antID[1]) {
-        document.getElementById("btnAnteriorEntrada").style.display = "none"; } 
-    
+        document.getElementById("btnAnteriorEntrada").style.display = "none"; 
+    } 
 
     actual = document.getElementById("pagDivModalEnt_" + id).id;
     console.log("Actual " + actual);
@@ -60,10 +68,11 @@ function pagAbrirModalEntrada(id) {
     if (nodos[ultNodo].id === actual) {
         console.log("Igual");
         document.getElementById("btnSiguienteEntrada").style.display = "none"; }
-    
+
+    /* ↑ ARREGLAR ESTO */
 }
 
-/* ↑ ARREGLAR ESTO */
+
 
 
 function pagCerrarModalEntrada(id) {
@@ -86,7 +95,7 @@ function pagAbrirsito(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
 }
 
-/* FIN MOODALES */
+/* FIN MODALES */
 
 var arrayInput = new Array (); // no sirve de nada y está en la siguiente funciónm, que tampoco sirve para nada
 function cambiarlenombre() {
@@ -109,37 +118,20 @@ function cambiarlenombre() {
     document.getElementById("inputEtiqueta").value = "";
 }
 
-
-// AGARRAR EL ARRAYINPUT Y PASARLO A JSON PARA MANDARLO
-
-/* function pagManejarEtiquetas() { // pa ná
-    var ajaxURL = "entradasYEtiquetas.php";
-    var solicitudAjax = new XMLHttpRequest();
-    solicitudAjax.onreadystatechange = function() {
-        if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
-            respuesta = solicitudAjax.responseText;                   
-        }
-        var JSONAMandar = JSON.stringify(arrayInput);
-        solicitudAjax.open("POST", ajaxURL, true);
-        
-        solicitudAjax.send(JSONAMandar);
-    }        
-} */
-
 function pagSpanEliminarEnt(id) {
-    var ajaxURL = "ediciones.php";
-    var solicitudAjax = new XMLHttpRequest();
-    solicitudAjax.onreadystatechange = function() {
-        if (solicitudAjax.readyState == 4 && solicitudAjax.status == 200) {
-            respuesta = solicitudAjax.responseText;     
-            document.getElementById("contenidoModalInputEdicion_" + id).style.display = "block";
-            console.log(respuesta);
+    var urlAJAX = "http://localhost:8080/pen_arb/eliminaciones.php";
+    var llamadaAJAX = new XMLHttpRequest();
 
+    llamadaAJAX.onreadystatechange = function() {
+        if (llamadaAJAX.readyState == 4 ) {
+            /* var respuesta = llamadaAJAX.responseText;
+            document.getElementById("todasEntradas").innerHTML = respuesta; */
+            window.location="pagina.php";
         }
-    
-    solicitudAjax.open("GET", ajaxURL, true);
-    solicitudAjax.send(id);
-    }
+     }
+
+    llamadaAJAX.open( "GET", urlAJAX + "?idEntrada=" + id);
+    llamadaAJAX.send();
 } 
 
 function pagPintarEtiquetaInput(etq) {
@@ -161,7 +153,7 @@ function cambiarOrdenFecha(id) {
     document.getElementById("fechaCreacion_" + id).innerHTML = fechaCreacion;
 }
 
-function cerrarModalEdicion(id) {
+function cerrarModalEdicion(id) {    
     document.getElementById("contenidoModalInputEdicion_" + id).style.display = "none";
     document.getElementById("pagContenidoModalDefecto_" + id).style.display = "inline-block";
 }
@@ -173,8 +165,9 @@ function mostrarInputEdicionEtiq(id) {
     document.getElementById("signoCheck_" + id).style.display = "inline-block";
 }
 
+/* ↑ PREGUNTAR */
+
 function agregarEtiqEditInputEscond(id) {
-    var etiquetas = "";
     var etq = document.getElementById("etiquetaEdicion_" + id).value;
     if (document.getElementById("etiquetaEdicion_" + id).style.display = "inline-block") {
         document.getElementById("etiquetaEdicion_" + id).style.display = "none";
@@ -183,7 +176,4 @@ function agregarEtiqEditInputEscond(id) {
         document.getElementById("signoCheck_" + id).style.display = "none";
     }
     document.getElementById("etiquetasModalInputEdicion_" + id).innerHTML = etq;
-    etiquetas += etq + ",";
-    document.getElementById("etiquetasModificadas").value += etiquetas;
-    /* ¿Por qué acá lo hace todo bien pero luego al mandar el formulario el input #etiquetasModificadas no recibe lo mandado? */
 }

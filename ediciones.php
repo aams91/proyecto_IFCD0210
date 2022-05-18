@@ -3,23 +3,34 @@ include("funciones.php");
 session_start();
 chequearSesion();
 
-echo "<pre>";
-var_dump($_POST);
-echo "</pre>";
+if ($_POST) {
 
-if ($_POST["adicionEditada"]) {
+    foreach ($_POST as $key => $value) {
+        if (str_contains($key, "etiquetaInput")) { 
+            $idEtiqueta = explode("_", $key)[1];
+            $conexionEditarEtiq = new ConectarDB;
+            $consultaEditarEtiq = "UPDATE etiquetas SET nombre = '$value' WHERE id_etiqueta =  '$idEtiqueta';";
+            $resultadoEditarEtiq = $conexionEditarEtiq->consultar($consultaEditarEtiq);
+            $conexionEditarEtiq->cerrar();
+        }
+    }
 
-    $textoEditado = $_POST["adicionEditada"];
-    $textoEditado = addslashes($textoEditado);
-    echo $textoEditado;
-    $idEntrada = $_POST["idEntrada"];
+    if ($_POST["adicionEditada"]) {
 
-    $conexionEditar = new ConectarDB;
-    $consultaEditarEntrada = "UPDATE entradas SET texto = '$textoEditado' WHERE entradas.id_entrada = '$idEntrada';";
-    $resultadoEditar = $conexionEditar->consultar($consultaEditarEntrada);
-    $conexionEditar->cerrar();
+        $textoEditado = $_POST["adicionEditada"];
+        $textoEditado = addslashes($textoEditado);
+        echo "3 " . $textoEditado;
+        $idEntrada = $_POST["idEntrada"];
 
-/*     header("Location: pagina.php");  */
+    
+
+        $conexionEditarEntrada = new ConectarDB;
+        $consultaEditarEntrada = "UPDATE entradas SET texto = '$textoEditado' WHERE entradas.id_entrada = '$idEntrada';";
+        $resultadoEditar = $conexionEditarEntrada->consultar($consultaEditarEntrada);
+        $conexionEditarEntrada->cerrar();
+
+    }
+    header("Location: pagina.php");
 }
 ?>
 

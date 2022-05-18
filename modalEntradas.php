@@ -24,7 +24,7 @@ $accesoCadaEtiqEntrada->cerrar();     ?>
                 } ?>
             </p>
             <span id="pagSpanEditarEnt" onclick="pagInputEditarEntrada(<?php echo $entrada['id_entrada']?>)">Editar</span>
-            <span id="pagSpanEliminarEnt" onclick="pagSpanEliminarEnt(<?php echo $entrada['id_entrada']?>)">Eliminar</span>
+            <span id="pagSpanEliminarEnt" onclick="pagSpanEliminarEnt(<?php echo $entrada['id_entrada']?>)">Eliminar entrada</span>
         </div>
 
         <!-- COMIENZO CONTENIDO ESCONDIDO POR DEFECTO -->
@@ -33,7 +33,6 @@ $accesoCadaEtiqEntrada->cerrar();     ?>
                 <div class="txtareaYBtns">
                     <textarea name="adicionEditada" class="adicionEditada" id="adicionEditada_<?php echo $entrada['id_entrada'];?>" cols="30" rows="10" maxlength="995" oninput="pagContarCarEdicion(<?php echo $entrada['id_entrada'];?>)"><?php echo $entrada["texto"];?></textarea>
                     <input type="hidden" name="idEntrada" id="idEntrada" value="<?php echo $entrada['id_entrada'];?>">
-                    <input type="hidden" id="etiquetasModificadas" name="etiquetasModificadas" value="">
                     <div id="pagContadorCarEdicion_<?php echo $entrada['id_entrada'];?>">0/995</div>
                     <button id="btnEnviarEditar">Enviar</button> <span class="pagSpanModales" id="pagBotonModal" onclick="cerrarModalEdicion(<?php echo $entrada['id_entrada']?>)"><mark>Entrada</mark></span>  
                 </div>    
@@ -47,7 +46,8 @@ $accesoCadaEtiqEntrada->cerrar();     ?>
                             <span style="display:none" id="signoCheck_<?php echo $etiqEntrada['id_etiqueta'];?>" onclick="agregarEtiqEditInputEscond(<?php echo $etiqEntrada['id_etiqueta'];?>)">✓</span>
                         </div>
                         <?php 
-                    } ?>  
+                    } ?> 
+                    <span>Haz click sobre la etiqueta para editarla</span>
             </div>     
             </form> 
             

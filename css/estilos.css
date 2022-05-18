@@ -64,9 +64,8 @@ body.pagina {
     padding-left: 30px;
 }
 
-.pagSpanModales:hover {
+.pagSpanModales:hover, .pagContenidoModalCadaEntrada:hover, .cadaEtiqueta:hover, .cadaEtiquetaRelacion:hover {
     cursor: pointer;
-    color: black;
 }
 
 .contenidoModalInputEdicion {
@@ -86,10 +85,6 @@ body.pagina {
     width: fit-content;
 }
 
-.cadaEtiqueta:hover, .cadaEtiquetaRelacion:hover {
-    cursor: pointer;
-}
-
 p#pagContenidoModalEtiq {
     display: flex;
 }
@@ -106,18 +101,9 @@ li.cadaEtiquetaRelacion {
     margin: 5px 0;
 }
 
-.pagContenidoModalCadaEntrada:hover {
-    cursor: pointer;
-}
-
 #entradasAsoc {
     float: left;
     width: 95%;
-}
-
-#pagBorrarEtiq:hover {
-    cursor: pointer;
-    font-weight: 600;
 }
 
 .pagContenidoModalEntrada {
@@ -126,15 +112,11 @@ li.cadaEtiquetaRelacion {
 }
 
 
-#pagSpanEditarEnt:hover {
+#pagSpanEditarEnt:hover, #pagSpanEliminarEnt:hover, .cadaEtiquetaRelacion:hover, #pagBorrarEtiq:hover {
     cursor: pointer;
     font-weight: 600;
 }
 
-.cadaEtiquetaRelacion:hover {
-    cursor: pointer;
-    font-weight: 600;
-}
 
 #todasEtiquetasRelacion {
     display: flex;
@@ -255,6 +237,8 @@ a#btnSiguienteEntrada {
 #etiquetitas {
     float: left;
     width: 60%;
+    display: flex;
+    flex-direction: column;
 }
 
 #etiquetitas span {
