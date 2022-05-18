@@ -62,8 +62,13 @@ function pagAbrirModalEntrada(id) {
     console.log("Actual " + actual);
     nodos = document.getElementById("todasEntradas").childNodes;
     ultNodo = nodos.length-2;
+
+    /* AQUÍ SE SACA EL ÚLTIMO HIJO 
+    document.getElementById("todasEntradas").lastChild.previousElementSibling; */
+
     if (document.getElementById("pagDivModalEnt_" + id).nextElementSibling) {
         sig = document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling.id;} 
+        console.log("Siguiente " + sig);
 
     if (nodos[ultNodo].id === actual) {
         console.log("Igual");
