@@ -61,7 +61,7 @@ include("funciones.php");
         foreach ($lasEtiqQueNoEstan as $cadaEtiqueta) {
             $consultaInsertarEtiquetas = "INSERT INTO etiquetas (id_etiqueta, nombre) VALUES (NULL, '$cadaEtiqueta');";
             $resultadoInsertarEtiquetas = $accesoInsertarEtiquetas->consultar($consultaInsertarEtiquetas);
-            $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_etiqueta, id_entrada) VALUES ((SELECT MAX(id_etiqueta) FROM etiquetas), (SELECT MAX(id_entrada) FROM entradas))";
+            $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_entrada, id_etiqueta) VALUES ((SELECT MAX(id_entrada) FROM entradas), (SELECT MAX(id_etiqueta) FROM etiquetas))";
             $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
         }
 

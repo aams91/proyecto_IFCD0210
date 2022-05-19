@@ -1,3 +1,10 @@
+function pasarID (id) {
+    document.getElementById("pagBotonModal").addEventListener("click", cambiarOrdenFecha(id));
+    document.getElementById("pagBotonModal").addEventListener("click", pintarBtnsAntYSig(id));
+    document.getElementById("pagBotonModal").addEventListener("click", pagAbrirModalEntrada(id)); 
+}
+
+
 function creUBorrar() {
     document.getElementById("nombreUsuario").value = "";
     document.getElementById("clave").value = "";
@@ -20,25 +27,15 @@ function pagContarCar() {
     document.getElementById("pagContadorCar").innerHTML = longVerdad + "/" + maxLong;
 }
 
+
 function pagContarCarEdicion(id) {
     longVerdadEd = document.getElementById("adicionEditada_" + id).value.length;
     maxLongEd = document.getElementById("adicionEditada_" + id).getAttribute("maxlength");
     document.getElementById("pagContadorCarEdicion_" + id).innerHTML = longVerdadEd + "/" + maxLongEd;
 }
 
-function siguienteEntrada(id) {
-
-}
-
-function anteriorEntrada(id) {
-    
-
-
-}
 
 /* COMIENZO MODALES */
-
-
 
 function pagAbrirModalEntrada(id) {
     if (document.getElementById("contenidoModalInputEdicion_" + id).style.display = "inline-block") {
@@ -47,63 +44,69 @@ function pagAbrirModalEntrada(id) {
 
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
     document.getElementById("pagContenidoModalDefecto_" + id).style.display = "inline-block";
-
-    /* A PARTIR DE AQUÍ, BOTONES DE ANTERIOR Y SIGUIENTE- QUE HAY QUE ARREGLAR ↓ */
-
-    ant = document.getElementById("pagDivModalEnt_" + id).previousElementSibling.previousElementSibling.id;
-    console.log("Anterior " + ant);
-    antID = ant.split("_");
-    if (!antID[1]) {
-        document.getElementById("btnAnteriorEntrada").style.display = "none"; 
-    } 
-
-    /* AQUÍ SE SACA EL ÚLTIMO HIJO 
-    document.getElementById("todasEntradas").lastChild.previousElementSibling; */
-
-    /* Tengo que:
-        averiguar si su previousElementSibling.previousElementSibling contiene pagDivModalEnt: si sí, mostrar #btnAnteriorEntrada; si no, no mostrarlo
-        para el último, averiguar si el id del lastChild.previousElementSibling.id y su id coinciden: si no, mostrar #btnSIguiente entrada; si sí, no mostrarlo
-        
-        */
-        
-    if (document.getElementById("pagDivModalEnt_" + id).id == document.getElementById("todasEntradas").lastChild.previousElementSibling.id) {
-        console.log("Igual");
-        document.getElementById("btnSiguienteEntrada").style.display = "none";
-    } if (!document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling) {
-        sig = document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling.id;
-        console.log("Siguiente " + sig);
-    } else {
-        document.getElementById("btnSiguienteEntrada").style.display = "inline-block"; 
-    }
-
-
-    /* ↑ ARREGLAR ESTO */
 }
 
 
+function pintarBtnsAntYSig(id) {
+    if (document.getElementById("pagDivModalEnt_" + id).previousElementSibling.previousElementSibling.id.includes("pagDivModalEnt") === false) {
+        // Primera entrada - comprobamos si el elemento anterior contiene "pagDivModalEnt" para mostrar el botón de siguiente:
+        document.getElementById("btnAnteriorEntrada_" + id).style.display = "none"; 
+        document.getElementById("btnSiguienteEntrada_" + id).style.display = "inline-block";
+    } else if (document.getElementById("pagDivModalEnt_" + id).id === document.getElementById("todasEntradas").lastChild.previousElementSibling.id && document.getElementById("pagDivModalEnt_" + id).previousElementSibling.previousElementSibling.id.includes("pagDivModalEnt") === true) {
+        // Última entrada - comprobamos si su id y el del último elemento coinciden para NO mostrar el botón de siguiente:
+        document.getElementById("btnSiguienteEntrada_" + id).style.display = "none";
+        document.getElementById("btnAnteriorEntrada_" + id).style.display = "inline-block";
+    } else if (document.getElementById("pagDivModalEnt_" + id).previousElementSibling.previousElementSibling.id.includes("pagDivModalEnt") === true && document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling.id.includes("pagDivModalEnt") === true) {
+        // Entradas intermedias - comprobamos si los elementos previo y posterior contiene "pagDivModalEnt" para mostrar los botones:
+        document.getElementById("btnAnteriorEntrada_" + id).style.display = "inline-block";
+        document.getElementById("btnSiguienteEntrada_" + id).style.display = "inline-block";
+    }
+}
+
+
+function anteriorEntrada(id) {
+    /* Sacar el id del elemento anterior (idMandar), llamar a la función pagCerrarModalEntrada() y llamar a la función pagAbrirModalEntrada(); */
+    idMandar = document.getElementById("pagDivModalEnt_" + id).previousElementSibling.previousElementSibling.id.split("_")[1];
+    console.log(idMandar);
+    pagCerrarModalEntrada(id);
+    pasarID(idMandar);
+}
+
+
+function siguienteEntrada(id) {
+    /* Sacar el id del elemento siguiente (idMandar2), llamar a la función pagCerrarModalEntrada() y llamar a la función pagAbrirModalEntrada(); */
+        idMandar2 = document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling.id.split("_")[1];
+        pagCerrarModalEntrada(id);
+        pasarID(idMandar2);    
+}
 
 
 function pagCerrarModalEntrada(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "none";
 }
 
+
 function pagAbrirModalEtiqueta(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "block";
 }
+
 
 function pagCerrarModalEntSegunEtiq(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
 }
 
+
 function pagCerrarsito(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
 }
+
 
 function pagAbrirsito(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
 }
 
 /* FIN MODALES */
+
 
 var arrayInput = new Array (); // no sirve de nada y está en la siguiente funciónm, que tampoco sirve para nada
 function cambiarlenombre() {
@@ -126,6 +129,7 @@ function cambiarlenombre() {
     document.getElementById("inputEtiqueta").value = "";
 }
 
+
 function pagSpanEliminarEnt(id) {
     var urlAJAX = "http://localhost:8080/pen_arb/eliminaciones.php";
     var llamadaAJAX = new XMLHttpRequest();
@@ -142,18 +146,22 @@ function pagSpanEliminarEnt(id) {
     llamadaAJAX.send();
 } 
 
+
 function pagPintarEtiquetaInput(etq) {
     document.getElementById("inputEtiqueta").value += etq + ", ";
 }
+
 
 function pagBorrarEtiq() {
     document.getElementById("inputEtiqueta").value = "";
 }
 
+
 function pagInputEditarEntrada(id) {
     document.getElementById("pagContenidoModalDefecto_" + id).style.display = "none";
     document.getElementById("contenidoModalInputEdicion_" + id).style.display = "inline-block";
 }
+
 
 function cambiarOrdenFecha(id) {
     fechaCreacion = document.getElementById("fechaCreacion_" + id).innerHTML.split("-");
@@ -161,27 +169,36 @@ function cambiarOrdenFecha(id) {
     document.getElementById("fechaCreacion_" + id).innerHTML = fechaCreacion;
 }
 
+
 function cerrarModalEdicion(id) {    
     document.getElementById("contenidoModalInputEdicion_" + id).style.display = "none";
     document.getElementById("pagContenidoModalDefecto_" + id).style.display = "inline-block";
 }
 
-/* ↓ AQUÍ - La función aplica al primer elemento donde aparece dicha entrada. Ej.: la etiqueta "musical", si quiero que salga el input para editarla, saldrá en la primera entrada */
+
 
 function mostrarInputEdicionEtiq(id) {
-    document.getElementById("etiquetaEdicion_" + id).style.display = "inline-block";
-    document.getElementById("signoCheck_" + id).style.display = "inline-block";
+    console.log(id);
+    id = id.split("_");
+    idF = id[0] + id[1];
+    document.getElementById("etiquetaEdicion_" + idF).style.display = "inline-block";
+    document.getElementById("signoCheck_" + idF).style.display = "inline-block";
 }
 
-/* ↑ PREGUNTAR */
 
 function agregarEtiqEditInputEscond(id) {
-    var etq = document.getElementById("etiquetaEdicion_" + id).value;
-    if (document.getElementById("etiquetaEdicion_" + id).style.display = "inline-block") {
-        document.getElementById("etiquetaEdicion_" + id).style.display = "none";
+    id = id.split("_");
+    idF = id[0] + id[1];
+    var etq = document.getElementById("etiquetaEdicion_" + idF).value;
+    if (document.getElementById("etiquetaEdicion_" + idF).style.display = "inline-block") {
+        document.getElementById("etiquetaEdicion_" + idF).style.display = "none";
     }
-    if (document.getElementById("signoCheck_" + id).style.display = "inline-block") {
-        document.getElementById("signoCheck_" + id).style.display = "none";
+    if (document.getElementById("signoCheck_" + idF).style.display = "inline-block") {
+        document.getElementById("signoCheck_" + idF).style.display = "none";
     }
-    document.getElementById("etiquetasModalInputEdicion_" + id).innerHTML = etq;
+    document.getElementById("etiquetasModalInputEdicion_" + id[0] + "_" + id[1]).innerHTML = etq;
+}
+
+function mostrarInputCrearEtiq(id) {
+    document.getElementById("etiqInputCreacion_" + id).style.display = "inline-block";
 }

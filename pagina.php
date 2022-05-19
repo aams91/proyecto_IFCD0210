@@ -35,7 +35,7 @@ chequearSesion();
                     $entradaIDEntrada = $entrada['id_entrada'];   ?>
                     <div class="entrada" data-id-entrada="<?php echo $entrada["id_entrada"];?>"> <?php   
                         echo $entrada["texto"];   ?> 
-                        <span class="pagSpanModales" id="pagBotonModal" onclick="pagAbrirModalEntrada(<?php echo $entrada['id_entrada'];?>); cambiarOrdenFecha(<?php echo $entrada['id_entrada'];?>)"><mark>Abrir modal</mark></span>
+                        <span class="pagSpanModales" id="pagBotonModal" onclick="pasarID(<?php echo $entrada['id_entrada'];?>)"><mark>Abrir modal</mark></span>
                     </div> <?php
                             include("modalEntradas.php");
                 }   ?>

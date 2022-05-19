@@ -112,7 +112,7 @@ li.cadaEtiquetaRelacion {
 }
 
 
-#pagSpanEditarEnt:hover, #pagSpanEliminarEnt:hover, .cadaEtiquetaRelacion:hover, #pagBorrarEtiq:hover {
+#pagSpanEditarEnt:hover, #pagSpanEliminarEnt:hover, .cadaEtiquetaRelacion:hover, #pagBorrarEtiq:hover, .crearEtiquetas:hover {
     cursor: pointer;
     font-weight: 600;
 }
@@ -170,19 +170,19 @@ li.cadaEtiquetaRelacion {
 
 /* ↑ Las tres "columnas del body */
 
-a#btnAnteriorEntrada, a#btnSiguienteEntrada {
+a.btnAnteriorEntrada, a.btnSiguienteEntrada {
     text-decoration: none;
     display: inline-block;
     padding: 8px 16px;
 }
 
-#btnSiguienteEntrada {
+.btnSiguienteEntrada {
     position: relative;
     top: 200px;
     left: 79%;
 }
 
-#btnAnteriorEntrada {
+.btnAnteriorEntrada {
     position: relative;
     top: 200px;
     left: 15%;
@@ -192,18 +192,18 @@ p#fechaCreacion {
     text-align: right;
 }
   
-a#btnAnteriorEntrada:hover, a#btnSiguienteEntrada:hover {
+a.btnAnteriorEntrada:hover, a.btnSiguienteEntrada:hover {
     background-color: #ddd;
     color: black;
     cursor: pointer;
 }
   
-a#btnAnteriorEntrada {
+a.btnAnteriorEntrada {
     background-color: #f1f1f1;
     color: black;
 }
   
-a#btnSiguienteEntrada {
+a.btnSiguienteEntrada {
     background-color: #04AA6D;
     color: white;
 }
