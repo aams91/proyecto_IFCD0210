@@ -6,6 +6,7 @@ function pasarID (id) {
 
 
 function creUBorrar() {
+    // Esta función borra los campos del formulario de creación de usuario
     document.getElementById("nombreUsuario").value = "";
     document.getElementById("clave").value = "";
     document.getElementById("nombre").value = "";
@@ -14,6 +15,7 @@ function creUBorrar() {
 
 
 function creUVaciarCrearOk() {
+    // Esta función vacía los campos del formulario de creación de usuario una vez hemos creado el usuario
     document.getElementById("nombreUsuario").value = "";
     document.getElementById("nombre").value = "";
     document.getElementById("email").value = "";
@@ -65,7 +67,7 @@ function pintarBtnsAntYSig(id) {
 
 
 function anteriorEntrada(id) {
-    /* Sacar el id del elemento anterior (idMandar), llamar a la función pagCerrarModalEntrada() y llamar a la función pagAbrirModalEntrada(); */
+    // Sacar el id del elemento anterior (idMandar), llamar a la función pagCerrarModalEntrada() y llamar a la función pasarID();
     idMandar = document.getElementById("pagDivModalEnt_" + id).previousElementSibling.previousElementSibling.id.split("_")[1];
     console.log(idMandar);
     pagCerrarModalEntrada(id);
@@ -74,7 +76,7 @@ function anteriorEntrada(id) {
 
 
 function siguienteEntrada(id) {
-    /* Sacar el id del elemento siguiente (idMandar2), llamar a la función pagCerrarModalEntrada() y llamar a la función pagAbrirModalEntrada(); */
+    // Sacar el id del elemento siguiente (idMandar2), llamar a la función pagCerrarModalEntrada() y llamar a la función pasarID();
         idMandar2 = document.getElementById("pagDivModalEnt_" + id).nextElementSibling.nextElementSibling.id.split("_")[1];
         pagCerrarModalEntrada(id);
         pasarID(idMandar2);    
@@ -90,17 +92,17 @@ function pagAbrirModalEtiqueta(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "block";
 }
 
-
+// A esta función debería haberle puesto pagCerrarModalEtiqueta pero no sé por qué no lo hice; alguna razón ha de haber
 function pagCerrarModalEntSegunEtiq(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
 }
 
-
+// Esta función cierra el modal "Entradas asociadas a (#etiqueta)" cuando damos click sobre la entrada que queremos abrir...*
 function pagCerrarsito(id) {
     document.getElementById("pagDivModalEntSegunEtiq_" + id).style.display = "none";
 }
 
-
+// *...y esta función abre el modal de la entrada que queremos abrir
 function pagAbrirsito(id) {
     document.getElementById("pagDivModalEnt_" + id).style.display = "block";
 }
@@ -146,7 +148,7 @@ function pagSpanEliminarEnt(id) {
     llamadaAJAX.send();
 } 
 
-
+// Esta función pinta la etiqueta elegida en el input principal de agregar etiquetas
 function pagPintarEtiquetaInput(etq) {
     document.getElementById("inputEtiqueta").value += etq + ", ";
 }
@@ -169,7 +171,7 @@ function cambiarOrdenFecha(id) {
     document.getElementById("fechaCreacion_" + id).innerHTML = fechaCreacion;
 }
 
-
+// Esta función hace que el modal de edición de entrada se "cierre" y vuelva al modal de la entrada en cuestión
 function cerrarModalEdicion(id) {    
     document.getElementById("contenidoModalInputEdicion_" + id).style.display = "none";
     document.getElementById("pagContenidoModalDefecto_" + id).style.display = "inline-block";

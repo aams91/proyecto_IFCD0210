@@ -47,14 +47,15 @@ include("funciones.php");
         $consultaVerEtiquetas = "SELECT * FROM etiquetas;";
         $resultadoVerEtiquetas = $accesoVerEtiquetas->consultar($consultaVerEtiquetas)->fetch_all(MYSQLI_ASSOC);
         foreach ($resultadoVerEtiquetas as $cadaResultado) {
+            // Acá meto todas las etiquetas (tanto las que existen como las que no) juntas
             $etiqApelotonadas = $etiqApelotonadas . "," . $cadaResultado["nombre"] ; 
         }
         
         $arrayEtiqBD = explode(",", $etiqApelotonadas); 
         $accesoVerEtiquetas->cerrar();
 
+        // Acá comparo los arrays para ver cuáles son las etiquetas que ya existen y cuáles las que no
         $lasEtiqQueNoEstan = array_diff($arrayEtiqInput, $arrayEtiqBD);
-
         $lasEtiqQueSiEstan = array_diff($arrayEtiqInput, $lasEtiqQueNoEstan);
 
         $accesoInsertarEtiquetas = new ConectarDB;

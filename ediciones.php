@@ -44,14 +44,16 @@ if ($_POST) {
         $consultaVerEtiquetas = "SELECT * FROM etiquetas;";
         $resultadoVerEtiquetas = $accesoVerEtiquetas->consultar($consultaVerEtiquetas)->fetch_all(MYSQLI_ASSOC);
         foreach ($resultadoVerEtiquetas as $cadaResultado) {
+            // Acá meto todas las etiquetas (tanto las que existen como las que no) juntas
             $etiqApelotonadas = $etiqApelotonadas . "," . $cadaResultado["nombre"] ; 
         }
         
         $arrayEtiqBD = explode(",", $etiqApelotonadas); 
         $accesoVerEtiquetas->cerrar();
 
-        $lasEtiqQueNoEstan = array_diff($arrayEtiqInput, $arrayEtiqBD);
+        // ********** ARREGLAR A PARTIR DE AQUÍ - sacar todas las etiquetas de la base de datos, compararlas con las que vamos a agregar, si están: ponemos algún tipo de mensaje; si no están: las creamos (tabla etiquetas) y las vinculamos con la entrada a la que pertenencen (tabla etiq_entradas)
 
+        $lasEtiqQueNoEstan = array_diff($arrayEtiqInput, $arrayEtiqBD);
         $lasEtiqQueSiEstan = array_diff($arrayEtiqInput, $lasEtiqQueNoEstan);
 
         $accesoInsertarEtiquetas = new ConectarDB;
@@ -62,13 +64,14 @@ if ($_POST) {
             $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
         }
 
+/*      CREO QUE ESTO NO LO VOY A NECESITAR   
         foreach ($lasEtiqQueSiEstan as $cadaEtiqueta) { 
             $consultaSacarId = "SELECT id_etiqueta FROM etiquetas WHERE nombre = '$cadaEtiqueta';";
             $resultadoSacarId = $accesoInsertarEtiquetas->consultar($consultaSacarId)->fetch_all(MYSQLI_ASSOC);
             $idEtiqueta = $resultadoSacarId[0]["id_etiqueta"];
             $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_entrada, id_etiqueta) VALUES ('$idEntrada', '$idEtiqueta');";
             $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
-        }
+        } */
     
     } 
     /*header("Location: pagina.php");*/
