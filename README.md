@@ -1,3 +1,3 @@
 # proyecto_IFCD0210
 
-A día de hoy, 20 de mayo de 2022, terminé con la funcionalidad de la aplicación mandada como proyecto final para el curso IFCD0210. Más adelante trabajaré más a fondo en su apariencia y, quién sabe, quizá le agregue más funcionaliades.
+Terminada la aplicación (08/04/2022 - 20/05/2022) para el proyecto final del curso IFCD0210. Mi primera aplicación. Más adelante trabajaré más a fondo en su apariencia y, quién sabe, quizá le agregue más funcionaliades.
