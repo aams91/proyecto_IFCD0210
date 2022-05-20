@@ -64,7 +64,7 @@ body.pagina {
     padding-left: 30px;
 }
 
-.pagSpanModales:hover, .pagContenidoModalCadaEntrada:hover, .cadaEtiqueta:hover, .cadaEtiquetaRelacion:hover {
+.pagSpanModales:hover, .pagContenidoModalCadaEntrada:hover, .cadaEtiqueta:hover, .cadaEtiquetaRelacion:hover, .signos:hover {
     cursor: pointer;
 }
 
@@ -248,3 +248,10 @@ a.btnSiguienteEntrada {
 #etiquetitas input {
     width: 30%;
 }
+
+.signos {
+    border: 1px solid grey;
+    border-radius: 25%;
+    padding: 2px;
+}
+

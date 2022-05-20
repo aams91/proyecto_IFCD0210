@@ -36,7 +36,7 @@ $accesoCadaEtiqEntrada->cerrar();     ?>
                     <div id="pagContadorCarEdicion_<?php echo $entrada['id_entrada'];?>">0/995</div>
                     <button id="btnEnviarEditar">Enviar</button> <span class="pagSpanModales" id="pagBotonModal" onclick="cerrarModalEdicion(<?php echo $entrada['id_entrada']?>)"><mark>Entrada</mark></span>  
                 </div>    
-                <span>Haz click sobre la etiqueta para editarla</span>
+                <span>Haz click sobre la etiqueta para editarla o eliminarla</span>
 
                 <div id="etiquetitas"> <?php 
                     foreach ($resultadoCadaEtiqEntrada as $etiqEntrada) {   
@@ -49,7 +49,9 @@ $accesoCadaEtiqEntrada->cerrar();     ?>
                                 
                             <input style="display:none" type="text" name="etiquetaInputEdicion_<?php echo $etiqEntrada['id_etiqueta'];?>" id="etiquetaEdicion_<?php echo $etiqEntrada['id_etiqueta'];?><?php echo $idEntrada;?>" value="<?php echo $etiqEntrada['nombre'];?>">  
                                 
-                            <span style="display:none" id="signoCheck_<?php echo $etiqEntrada['id_etiqueta'];?><?php echo $idEntrada;?>" onclick="agregarEtiqEditInputEscond('<?php echo $idEtiqueta;?>_<?php echo $idEntrada;?>')">✓</span>
+                            <span class="signos" style="display:none" id="signoCheck_<?php echo $etiqEntrada['id_etiqueta'];?><?php echo $idEntrada;?>" onclick="agregarEtiqEditInputEscond('<?php echo $idEtiqueta;?>_<?php echo $idEntrada;?>')">✓</span>
+
+                            <span class="signos" style="display:none" id="signoEquis_<?php echo $etiqEntrada['id_etiqueta'];?><?php echo $idEntrada;?>" onclick="desvincularEtiqEntrada('<?php echo $idEtiqueta;?>_<?php echo $idEntrada;?>')">✗</span>
                         </div>
                         <?php 
                     } ?> 

@@ -3,14 +3,9 @@ include("funciones.php");
 session_start();
 chequearSesion();
 
-echo "<pre>";
-/* var_dump(explode(", ", $_POST["etiqInputCreacion"])); */
-var_dump($_POST);
-echo "</pre>";
-
 if ($_POST) {
 
-  /* // Editar etiquetas   
+    // Editar etiquetas   
     foreach ($_POST as $key => $value) {
         if (str_contains($key, "etiquetaInput")) { 
             $idEtiqueta = explode("_", $key)[1];
@@ -32,7 +27,7 @@ if ($_POST) {
         $consultaEditarEntrada = "UPDATE entradas SET texto = '$textoEditado' WHERE entradas.id_entrada = '$idEntrada';";
         $resultadoEditar = $conexionEditarEntrada->consultar($consultaEditarEntrada);
         $conexionEditarEntrada->cerrar();
-    } */
+    } 
 
     // Crear etiquetas
     if ($_POST["etiqInputCreacion"]) {
@@ -51,10 +46,13 @@ if ($_POST) {
         $arrayEtiqBD = explode(",", $etiqApelotonadas); 
         $accesoVerEtiquetas->cerrar();
 
-        // ********** ARREGLAR A PARTIR DE AQUÍ - sacar todas las etiquetas de la base de datos, compararlas con las que vamos a agregar, si están: ponemos algún tipo de mensaje; si no están: las creamos (tabla etiquetas) y las vinculamos con la entrada a la que pertenencen (tabla etiq_entradas)
-
         $lasEtiqQueNoEstan = array_diff($arrayEtiqInput, $arrayEtiqBD);
         $lasEtiqQueSiEstan = array_diff($arrayEtiqInput, $lasEtiqQueNoEstan);
+        echo "<pre>";
+        var_dump($lasEtiqQueNoEstan);
+        echo "<br>";
+        var_dump($lasEtiqQueSiEstan);
+        echo "</pre>";
 
         $accesoInsertarEtiquetas = new ConectarDB;
         foreach ($lasEtiqQueNoEstan as $cadaEtiqueta) {
@@ -64,16 +62,24 @@ if ($_POST) {
             $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
         }
 
-/*      CREO QUE ESTO NO LO VOY A NECESITAR   
-        foreach ($lasEtiqQueSiEstan as $cadaEtiqueta) { 
-            $consultaSacarId = "SELECT id_etiqueta FROM etiquetas WHERE nombre = '$cadaEtiqueta';";
-            $resultadoSacarId = $accesoInsertarEtiquetas->consultar($consultaSacarId)->fetch_all(MYSQLI_ASSOC);
-            $idEtiqueta = $resultadoSacarId[0]["id_etiqueta"];
-            $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_entrada, id_etiqueta) VALUES ('$idEntrada', '$idEtiqueta');";
-            $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
-        } */
+        
+   
+        foreach ($lasEtiqQueSiEstan as $cadaEtiqueta) {
+            // compruebo la cantidad de veces que la etiqueta está vinculada a la entada a la que se agrega
+            $consultaVecesEtiqVinculada = "SELECT COUNT(*) AS repeticiones FROM etiq_entradas WHERE etiq_entradas.id_entrada = $idEntrada AND etiq_entradas.id_etiqueta = (SELECT id_etiqueta FROM etiquetas WHERE etiquetas.nombre = '$cadaEtiqueta');";
+            $resultadoVecesEtiqVinculada = $accesoInsertarEtiquetas->consultar($consultaVecesEtiqVinculada)->fetch_assoc();
+
+            if ($resultadoVecesEtiqVinculada['repeticiones'] == 0) {
+                // si es 0, la vinculo
+                $consultaSacarId = "SELECT id_etiqueta FROM etiquetas WHERE nombre = '$cadaEtiqueta';";
+                $resultadoSacarId = $accesoInsertarEtiquetas->consultar($consultaSacarId)->fetch_all(MYSQLI_ASSOC);
+                $idEtiqueta = $resultadoSacarId[0]["id_etiqueta"];
+                $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_entrada, id_etiqueta) VALUES ('$idEntrada', '$idEtiqueta');";
+                $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
+            }
+        } 
     
     } 
-    /*header("Location: pagina.php");*/
+    header("Location: pagina.php");
 } 
 ?>

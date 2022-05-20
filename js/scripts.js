@@ -138,9 +138,9 @@ function pagSpanEliminarEnt(id) {
 
     llamadaAJAX.onreadystatechange = function() {
         if (llamadaAJAX.readyState == 4 ) {
-            /* var respuesta = llamadaAJAX.responseText;
-            document.getElementById("todasEntradas").innerHTML = respuesta; */
-            window.location="pagina.php";
+              var respuesta = llamadaAJAX.responseText;
+            document.getElementById("todasEntradas").innerHTML = respuesta; 
+            /* window.location="pagina.php"; */
         }
      }
 
@@ -185,6 +185,7 @@ function mostrarInputEdicionEtiq(id) {
     idF = id[0] + id[1];
     document.getElementById("etiquetaEdicion_" + idF).style.display = "inline-block";
     document.getElementById("signoCheck_" + idF).style.display = "inline-block";
+    document.getElementById("signoEquis_" + idF).style.display = "inline-block";
 }
 
 
@@ -203,4 +204,24 @@ function agregarEtiqEditInputEscond(id) {
 
 function mostrarInputCrearEtiq(id) {
     document.getElementById("etiqInputCreacion_" + id).style.display = "inline-block";
+}
+
+function desvincularEtiqEntrada(id) {
+    id = id.split("_");
+    idEtiqueta = id[0];
+    idEntradaEtiq = id[1];
+    var urlAJAX2 = "http://localhost:8080/pen_arb/eliminaciones.php";
+    var llamadaAJAX2 = new XMLHttpRequest();
+
+    llamadaAJAX2.onreadystatechange = function() {
+        if (llamadaAJAX2.readyState == 4 ) {
+            /*  var respuesta = llamadaAJAX2.responseText;
+            document.getElementById("todasEntradas").innerHTML = respuesta;  */
+            window.location="pagina.php";
+        }
+     }
+
+    llamadaAJAX2.open( "GET", urlAJAX2 + "?idEtiqueta=" + idEtiqueta + "&idEntradaEtiq=" + idEntradaEtiq);
+    llamadaAJAX2.send();
+
 }
