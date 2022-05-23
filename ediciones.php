@@ -1,7 +1,6 @@
 <?php
 include("funciones.php");
-session_start();
-chequearSesion();
+
 
 if ($_POST) {
 
@@ -12,7 +11,6 @@ if ($_POST) {
             $conexionEditarEtiq = new ConectarDB;
             $consultaEditarEtiq = "UPDATE etiquetas SET nombre = '$value' WHERE id_etiqueta =  '$idEtiqueta';";
             $resultadoEditarEtiq = $conexionEditarEtiq->consultar($consultaEditarEtiq);
-            $conexionEditarEtiq->cerrar();
         }
     }
 
@@ -26,7 +24,7 @@ if ($_POST) {
         $conexionEditarEntrada = new ConectarDB;
         $consultaEditarEntrada = "UPDATE entradas SET texto = '$textoEditado' WHERE entradas.id_entrada = '$idEntrada';";
         $resultadoEditar = $conexionEditarEntrada->consultar($consultaEditarEntrada);
-        $conexionEditarEntrada->cerrar();
+        
     } 
 
     // Crear etiquetas
@@ -44,8 +42,7 @@ if ($_POST) {
         }
         
         $arrayEtiqBD = explode(",", $etiqApelotonadas); 
-        $accesoVerEtiquetas->cerrar();
-
+        
         // *...para luego crear dos arrays: uno con las etiquetas que existen y otro con las que no.
         $lasEtiqQueNoEstan = array_diff($arrayEtiqInput, $arrayEtiqBD);
         $lasEtiqQueSiEstan = array_diff($arrayEtiqInput, $lasEtiqQueNoEstan);
@@ -71,9 +68,10 @@ if ($_POST) {
                 $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_entrada, id_etiqueta) VALUES ('$idEntrada', '$idEtiqueta');";
                 $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
             }
-        } 
-    
+        }
     } 
+    $conexionEditarEntrada->cerrar();
+    $conexionEditarEtiq->cerrar();
     $accesoVerEtiquetas->cerrar();
     $accesoInsertarEtiquetas->cerrar();
     header("Location: pagina.php");

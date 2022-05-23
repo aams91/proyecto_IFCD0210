@@ -1,8 +1,8 @@
 <?php
-include("funciones.php");
 session_start();
-chequearSesion();
+include("funciones.php");
 
+if ($_SESSION["usuario"]) {
     $usuario = $_SESSION["usuario"];
     $texto = $_POST["adicion"];
     $etiqInput = $_POST["inputEtiqueta"];
@@ -74,8 +74,6 @@ chequearSesion();
             $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
         }
     }
-
-header("Location: pagina.php"); 
-
-
+    header("Location: pagina.php"); 
+    }
 ?>

@@ -1,9 +1,6 @@
 <?php
 include("funciones.php");
-session_start();
-chequearSesion();
 
-var_dump($_GET);
 
 // ↓ Aquí función pagSpanEliminarEnt(id)
 if (isset($_GET["idEntrada"])) {
