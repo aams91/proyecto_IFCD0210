@@ -257,3 +257,15 @@ a.btnSiguienteEntrada {
     padding: 2px;
 }
 
+.pagSpanModales {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: small;
+}
+
+.pagSpanModales:hover {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: small;
+    font-family: 'Courier New', Courier, monospace;
+}
+
