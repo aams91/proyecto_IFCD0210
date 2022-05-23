@@ -39,20 +39,16 @@ if ($_POST) {
         $consultaVerEtiquetas = "SELECT * FROM etiquetas;";
         $resultadoVerEtiquetas = $accesoVerEtiquetas->consultar($consultaVerEtiquetas)->fetch_all(MYSQLI_ASSOC);
         foreach ($resultadoVerEtiquetas as $cadaResultado) {
-            // Acá meto todas las etiquetas (tanto las que existen como las que no) juntas
+            // Acá meto todas las etiquetas (tanto las que existen como las que no) juntas...*
             $etiqApelotonadas = $etiqApelotonadas . "," . $cadaResultado["nombre"] ; 
         }
         
         $arrayEtiqBD = explode(",", $etiqApelotonadas); 
         $accesoVerEtiquetas->cerrar();
 
+        // *...para luego crear dos arrays: uno con las etiquetas que existen y otro con las que no.
         $lasEtiqQueNoEstan = array_diff($arrayEtiqInput, $arrayEtiqBD);
         $lasEtiqQueSiEstan = array_diff($arrayEtiqInput, $lasEtiqQueNoEstan);
-        echo "<pre>";
-        var_dump($lasEtiqQueNoEstan);
-        echo "<br>";
-        var_dump($lasEtiqQueSiEstan);
-        echo "</pre>";
 
         $accesoInsertarEtiquetas = new ConectarDB;
         foreach ($lasEtiqQueNoEstan as $cadaEtiqueta) {
@@ -61,16 +57,14 @@ if ($_POST) {
             $consultaEmparejarNo = "INSERT INTO etiq_entradas (id_entrada, id_etiqueta) VALUES ('$idEntrada', (SELECT MAX(id_etiqueta) FROM etiquetas));";
             $resultadoEmparejarNo = $accesoInsertarEtiquetas->consultar($consultaEmparejarNo);
         }
-
-        
-   
+           
         foreach ($lasEtiqQueSiEstan as $cadaEtiqueta) {
-            // compruebo la cantidad de veces que la etiqueta está vinculada a la entada a la que se agrega
+            // Compruebo la cantidad de veces que la etiqueta está vinculada a la entada a la que se agrega...**
             $consultaVecesEtiqVinculada = "SELECT COUNT(*) AS repeticiones FROM etiq_entradas WHERE etiq_entradas.id_entrada = $idEntrada AND etiq_entradas.id_etiqueta = (SELECT id_etiqueta FROM etiquetas WHERE etiquetas.nombre = '$cadaEtiqueta');";
             $resultadoVecesEtiqVinculada = $accesoInsertarEtiquetas->consultar($consultaVecesEtiqVinculada)->fetch_assoc();
 
             if ($resultadoVecesEtiqVinculada['repeticiones'] == 0) {
-                // si es 0, la vinculo
+                // **... y si no está vinculada, la vinculo.
                 $consultaSacarId = "SELECT id_etiqueta FROM etiquetas WHERE nombre = '$cadaEtiqueta';";
                 $resultadoSacarId = $accesoInsertarEtiquetas->consultar($consultaSacarId)->fetch_all(MYSQLI_ASSOC);
                 $idEtiqueta = $resultadoSacarId[0]["id_etiqueta"];
@@ -80,6 +74,8 @@ if ($_POST) {
         } 
     
     } 
+    $accesoVerEtiquetas->cerrar();
+    $accesoInsertarEtiquetas->cerrar();
     header("Location: pagina.php");
 } 
 ?>

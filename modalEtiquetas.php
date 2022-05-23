@@ -1,4 +1,8 @@
 <?php 
+include("funciones.php");
+session_start();
+chequearSesion();
+
 foreach ($resultadoEtiquetasRelacion as $etiqueta) {
     $etiquetaIDEtiqueta = $etiqueta['id_etiqueta'];
     $accesoTextoBien = new ConectarDB;

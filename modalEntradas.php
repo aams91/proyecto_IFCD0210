@@ -1,4 +1,8 @@
 <?php 
+include("funciones.php");
+session_start();
+chequearSesion();
+
 $accesoCadaEtiqEntrada = new ConectarDB;
 $consultaCadaEtiqEntrada = "SELECT etiquetas.nombre, etiquetas.id_etiqueta FROM etiquetas INNER JOIN etiq_entradas ON etiquetas.id_etiqueta = etiq_entradas.id_etiqueta INNER JOIN entradas ON entradas.id_entrada = etiq_entradas.id_entrada WHERE entradas.id_entrada = $entradaIDEntrada";
 $resultadoCadaEtiqEntrada = $accesoCadaEtiqEntrada->consultar($consultaCadaEtiqEntrada)->fetch_all(MYSQLI_ASSOC);   

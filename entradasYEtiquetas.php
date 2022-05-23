@@ -1,11 +1,11 @@
 <?php
-session_start();
 include("funciones.php");
-
+session_start();
+chequearSesion();
 
     $usuario = $_SESSION["usuario"];
     $texto = $_POST["adicion"];
-    $etiqInput = $_POST["inputEtiqueta"]; //esto es un string
+    $etiqInput = $_POST["inputEtiqueta"];
     $todasEtiquetasInput1 = trim($etiqInput);
     $todasEtiquetasInput = rtrim($todasEtiquetasInput1, ",");
     $todasEtiquetasInput = addslashes($todasEtiquetasInput);

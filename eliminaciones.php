@@ -16,7 +16,7 @@ if (isset($_GET["idEntrada"])) {
     $resultadoSiEntTieneEtiq = $conexionEliminaciones->consultar($consultaSiEntTieneEtiq)->fetch_all(MYSQLI_ASSOC);
 
     if ($resultadoSiEntTieneEtiq[0]["cuenta"] == 0) {
-        // *...si no está vinculada a ninguna etiqueta, la elimino
+        // *...si no está vinculada a ninguna etiqueta, la elimino.
         $consultaEliminarEntrada = "DELETE FROM entradas WHERE entradas.id_entrada = $idEntrada";
         $resultadoEliminarEntrada = $conexionEliminaciones->consultar($consultaEliminarEntrada);
     } else {
@@ -36,14 +36,14 @@ if (isset($_GET["idEntrada"])) {
                 $resultadoEtiquetasVinculadas = $conexionEliminaciones->consultar($consultaEtiquetasVinculadas)->fetch_all(MYSQLI_ASSOC);
 
                 foreach ($resultadoEtiquetasVinculadas as $cadaEtiquetaVinculada) {
-                    // ****...y por cada etiqueta, elimino la vinculación y la etiqueta
+                    // ****...y por cada etiqueta, elimino la vinculación y la etiqueta.
                     $consultaEliminarVinculacion = "DELETE FROM etiq_entradas WHERE etiq_entradas.id_entrada = $idEntrada AND etiq_entradas.id_etiqueta = $idEtiqueta";
                     $resultadoEliminarVinculacion = $conexionEliminaciones->consultar($consultaEliminarVinculacion);
                     $consultaEliminarEtiqueta = "DELETE FROM etiquetas WHERE etiquetas.id_etiqueta = $idEtiqueta";
                     $resultadoEliminarEtiqueta = $conexionEliminaciones->consultar($consultaEliminarEtiqueta);
                 }
             } if ($resultadoEtiqEnMasEnt[0]["repeticiones"] > 1) {
-                // ***...si la etiqueta está vinculada a más entradas, elimino solamente el vínculo
+                // ***...si la etiqueta está vinculada a más entradas, elimino solamente el vínculo.
                 $consultaEliminarVinculacion = "DELETE FROM etiq_entradas WHERE etiq_entradas.id_entrada = $idEntrada";
                 $resultadoEliminarVinculacion = $conexionEliminaciones->consultar($consultaEliminarVinculacion); 
             } 
@@ -66,13 +66,13 @@ if (isset($_GET['idEntradaEtiq'])) {
     var_dump($resultadoAveriguar);
 
     if ($resultadoAveriguar[0]['repeticion'] == 1) {
-        // *...si no está vinculada a otra/s entrada/s, elimino dicha etiqueta
+        // *...si no está vinculada a otra/s entrada/s, elimino dicha etiqueta.
         $consultaDesvincularEtiq = "DELETE FROM etiq_entradas WHERE etiq_entradas.id_etiqueta = $idEtiqueta AND etiq_entradas.id_entrada = $idEntrada";
         $consultaEliminarEtiq = "DELETE FROM etiquetas WHERE etiquetas.id_etiqueta = $idEtiqueta";
         $resultadoDesvincularEtiq = $conexionAveriguar->consultar($consultaDesvincularEtiq);
         $resultadoEliminarEtiq = $conexionAveriguar->consultar($consultaEliminarEtiq);
     } elseif ($resultadoAveriguar[0]['repeticion'] > 1) {
-        // *...si sí hay otra/s entrada/s, solo desvinculo
+        // *...si sí hay otra/s entrada/s, solo desvinculo.
         $consultaDesvincularEtiq = "DELETE FROM etiq_entradas WHERE etiq_entradas.id_etiqueta = $idEtiqueta AND etiq_entradas.id_entrada = $idEntrada";
         $resultadoDesvincularEtiq = $conexionAveriguar->consultar($consultaDesvincularEtiq);
     }

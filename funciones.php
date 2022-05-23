@@ -1,4 +1,6 @@
 <?php
+session_start();
+chequearSesion();
 
 /* Conectar PHP a la base de datos */
 class ConectarDB {
@@ -13,14 +15,14 @@ class ConectarDB {
     }
 
     public function consultar($consulta) {
-        // this objeto a consultar ($consulta) se lleva (->) al objeto conexion y se hace la consulta (query)
+        // This objeto a consultar ($consulta) se lleva (->) al objeto conexion y se hace la consulta (query).
         $resultado = $this->conexion->query($consulta) or die($this->conexion->error);
         if ($resultado) {
             return $resultado;
         }
     }
 
-    // CERRAR
+    // Desconectar.
     public function cerrar(){
         $this->conexion->close();
       }
